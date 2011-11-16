@@ -448,6 +448,10 @@ void part8(double array [])
     glRotatef(180,0.0,1.0,0.0);
     glRotated( array[8], 0,0,1 ) ;
     legPart8();
+    //glTranslatef(0.5,0.0,0.0);
+    //glRotatef(0,0.0,1.0,0.0);
+    //glScalef(1.0,1.0,1.0);
+    //jellyLegShape();
     glPopMatrix();
     for(int i=0;i<8;i++)glPopMatrix();
 }
@@ -474,9 +478,11 @@ void displayCallBack(void)
     
     //draw jellyfish body
     jellyBody();
+    
+    
+    
+    //draw jellyfish leg
     jellyLeg(angles);
-    
-    
     
     //added grids and lines
     drawAxesAndGridLines(true, true, true);
