@@ -316,7 +316,7 @@ void displayCallBack(void)
     executeViewControl (yaw, pitch);
     
     //draw jellyfish body
-    //jellyBody();
+    jellyBody();
     jellyLeg();
     
     //added grids and lines

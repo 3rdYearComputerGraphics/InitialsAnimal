@@ -26,36 +26,34 @@ void jellyLegShape();
 
 void jellyLegShape() {
     
-    //draw left J
     glPushMatrix();
-    glTranslatef(-0.1,0.15,0.0);
-    glRotatef(210,0.0,0.0,1.0);
-    glScalef(0.2,0.2,0.2);
+    glTranslatef(0,-0.3,0.0);
+    glRotatef(90,0,0,1);
+    glScalef(0.1,0.1,0.1);
     drawM();
     glPopMatrix();
     
-    //draw left R
+   
     glPushMatrix();
-    glTranslatef(-0.4,-0.01,0.0);
-    //glRotatef(180,0.0,1.0,0.0);
-    glScalef(-0.2,0.2,0.2);
+    glTranslatef(0.22,-0.45,0.0);
+    glRotatef(180,1.0,0.0,0.0);
+    glScalef(-0.1,0.1,0.1);
     drawI();
     glPopMatrix();
     
-    //draw right J
     glPushMatrix();
-    glTranslatef(0.1,0.15,0.0);
+    glTranslatef(-0.1,-0.7,0.0);
     glRotatef(180,0.0,1.0,0.0);
-    glRotatef(210,0.0,0.0,1.0);
-    glScalef(0.2,0.2,0.2);
+    glRotatef(180,0.0,0.0,1.0);
+    glScalef(0.1,0.1,0.1);
     drawL();
     glPopMatrix();
     
-    //draw right R
+
     glPushMatrix();
-    glTranslatef(0.4,-0.01,0.0);
+    glTranslatef(-0.03,-0.98,0.0);
     glRotatef(180,0.0,1.0,0.0);
-    glScalef(-0.2,0.2,0.2);
+    glScalef(-0.1,0.1,0.1);
     drawK();
     glPopMatrix();
 }
