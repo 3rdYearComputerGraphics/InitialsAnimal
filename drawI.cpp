@@ -17,7 +17,7 @@
 void drawI() {
     
     
-    //vertical of L
+    //vertical of I
     glPushMatrix();
     glTranslatef(0.75,0.15,0.0);
     //glRotatef(90,1.0,0.0,0.0);
@@ -25,7 +25,7 @@ void drawI() {
     cube(0,1,2,3,4,5,6,7);
     glPopMatrix();
     
-    //curve of L
+    //curve of I
     glPushMatrix();
     glTranslatef(0.75,1.5,0.0);
     //glRotatef(90,0.0,1.0,0.0);

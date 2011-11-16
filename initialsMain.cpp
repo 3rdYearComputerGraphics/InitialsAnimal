@@ -20,6 +20,8 @@
 #include "drawR.h"
 #include "drawL.h"
 #include "drawI.h"
+#include "drawM.h"
+#include "jellyBodyShape.h"
 
 
 //======================================================
@@ -116,7 +118,7 @@ void drawInitials()
     
     //draw initial J
     glPushMatrix();
-    glTranslatef(-0.5,0.0,0.0);
+    glTranslatef(-0.6,0.0,0.0);
     glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
     drawJ();
@@ -124,7 +126,7 @@ void drawInitials()
     
     //draw intial K
     glPushMatrix();
-    glTranslatef(-0.1,0.0,0.0);
+    glTranslatef(-0.4,0.0,0.0);
     glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
     drawK();
@@ -132,7 +134,7 @@ void drawInitials()
     
     //draw initial R
     glPushMatrix();
-    glTranslatef(0.4,-0.01,0.0);
+    glTranslatef(-0.2,-0.01,0.0);
     glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
     drawR();
@@ -152,6 +154,14 @@ void drawInitials()
     glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
     drawI();
+    glPopMatrix();
+    
+    //draw initial M
+    glPushMatrix();
+    //glTranslatef(0.4,-0.01,0.0);
+    glScalef(0.1,0.1,0.1);
+    //glRotatef(90,0.0,1.0,0.0);
+    drawM();
     glPopMatrix();
 }
 

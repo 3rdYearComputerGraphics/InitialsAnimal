@@ -36,9 +36,9 @@ void drawR() {
     glPushMatrix();
     glTranslatef(0.2,0.65,0.0);
     glRotatef(180,0.0,1.0,0.0);
-    //glScalef(0.5,0.5,0.5);
+    glScalef(1.5,1.0,1.0);
     draw3Dcurve  (0.52,          //depth  
-				  0.4,          //inner radius
+				  0.5,          //inner radius
 				  0.95,          //outer radius
 				  90.0,          //start angle
 				  270.0,  //stop angle
