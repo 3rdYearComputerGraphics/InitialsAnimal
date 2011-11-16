@@ -106,6 +106,7 @@ void viewControl()
 }
 
 //hiya
+//hiya back...
 //======================================================
 //DRAW INITIALS (Calls external funcs drawJ drawK drawR)
 //======================================================
