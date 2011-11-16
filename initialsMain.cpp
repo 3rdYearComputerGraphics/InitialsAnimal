@@ -176,7 +176,10 @@ void displayCallBack(void)
     executeViewControl (yaw, pitch);
     
     //draw initials
-    drawInitials();
+    //drawInitials();
+    
+    //jellyfish body shape
+    jellyBodyShape();
 
 	glFlush();
 	glutSwapBuffers();
