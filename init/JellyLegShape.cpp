@@ -1,5 +1,5 @@
 //
-//  jellyBodyShape.cpp
+//  jellyLegShape.cpp
 //  GraphicsProject
 //
 //  Created by Jamie Johnstone & Lewis McLean on 04/10/2011.
@@ -21,7 +21,7 @@
 #include "drawM.h"
 #include "3DCurve.h"
 
-void jellyBodyShape() {
+void JellyLegShape() {
     
     //draw left J
     glPushMatrix();

@@ -223,11 +223,10 @@ void viewControl()
 
 //======================================================
 //DRAW INITIALS (Calls external funcs drawJ drawK drawR)
+//DRAWING OTHER PARTS OF THE ANIMAL
 //======================================================
 void drawInitials()
 {
-    
-    
     //draw initial J
     glPushMatrix();
     glTranslatef(-0.6,0.0,0.0);
@@ -293,6 +292,12 @@ void jellyBody()
     
 }
 
+void jellyLeg()
+{
+    
+
+}
+
 //======================================================
 // DISPLAY CALLBACK ROUTINE 
 //======================================================
@@ -301,10 +306,6 @@ void displayCallBack(void)
 	// display callback,
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     executeViewControl (yaw, pitch);
-    
-    //draw initials
-    //drawInitials();
-    
     
     //draw jellyfish body
     jellyBody();
