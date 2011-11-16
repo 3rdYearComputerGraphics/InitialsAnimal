@@ -152,6 +152,7 @@ void keyboardCallBack(unsigned char key, int x, int y) {
 	glutPostRedisplay();
 }
 
+void jellyBody();
 
 //======================================================
 //  GLOBAL VARIABLES
@@ -279,6 +280,21 @@ void drawInitials()
     glPopMatrix();
 }
 
+void jellyBody()
+{
+    
+    for (int i=0; i<=180; i++) {
+
+        //draw instance of jellyBodyShape()
+        glPushMatrix();
+        //glTranslatef(0.5,0.0,0.0);
+        glRotatef(i,0.0,1.0,0.0);
+        //glScalef(1.0,1.0,1.0);
+        jellyBodyShape();
+        glPopMatrix();
+    }
+    
+}
 
 //======================================================
 // DISPLAY CALLBACK ROUTINE 
@@ -292,10 +308,12 @@ void displayCallBack(void)
     //draw initials
     //drawInitials();
     
-    //jellyfish body shape
-    jellyBodyShape();
+    
+    //draw jellyfish body
+    jellyBody();
+    
     drawAxesAndGridLines(true, true, true);
-
+    
 	glFlush();
 	glutSwapBuffers();
 }
