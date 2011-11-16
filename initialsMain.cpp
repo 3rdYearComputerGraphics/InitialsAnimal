@@ -22,6 +22,7 @@
 #include "drawI.h"
 #include "drawM.h"
 #include "jellyBodyShape.h"
+#include "JellyLegShape.h"
 
 //======================================================
 // GLOBAL VARIABLES 
@@ -51,6 +52,7 @@ void rotateView(bool r);
 void idleCallBack ();
 void resetView();
 void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display);
+void jellyLeg();
 
 
 
@@ -281,6 +283,7 @@ void jellyBody()
     
     for (int i=0; i<=180; (i=i+10)) {
 
+
         //draw instance of jellyBodyShape()
         glPushMatrix();
         //glTranslatef(0.5,0.0,0.0);
@@ -294,8 +297,13 @@ void jellyBody()
 
 void jellyLeg()
 {
-    
-
+    //draw instance of jellyLegShape()
+    glPushMatrix();
+    //glTranslatef(0.5,0.0,0.0);
+    //glRotatef(0,0.0,1.0,0.0);
+    //glScalef(1.0,1.0,1.0);
+    jellyLegShape();
+    glPopMatrix();
 }
 
 //======================================================
@@ -308,9 +316,10 @@ void displayCallBack(void)
     executeViewControl (yaw, pitch);
     
     //draw jellyfish body
-    jellyBody();
+    //jellyBody();
+    jellyLeg();
     
-    
+    //added grids and lines
     drawAxesAndGridLines(true, true, true);
     
 	glFlush();
@@ -336,11 +345,14 @@ int main(int argc, char** argv)
 	glutMouseFunc(mouseClickCallBack);
     glutMotionFunc(mouseMotionCallBack);
 	glutKeyboardFunc(keyboardCallBack);
+    // Enable lighting
+
     
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glColor3f(1.0, 0.0, 0.0);
 	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 	glEnable(GL_DEPTH_TEST); /* Enable hidden--surface--removal */
+  
 
      
 	glutMainLoop();
