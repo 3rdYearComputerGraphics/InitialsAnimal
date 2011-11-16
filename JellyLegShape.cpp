@@ -23,37 +23,94 @@
 
 
 void jellyLegShape();
+void legPart();
+void legBigPart();
+void legPart1();
+void legPart2();
+void legPart3();
+void legPart4();
+void legPart5();
+void legPart6();
+void legPart7();
+void legPart8();
 
-void jellyLegShape() {
+void jellyLegShape()
+{
+
+    glPushMatrix();
+    legPart1();
+    legPart2();
+    legPart3();
+    legPart4();
+    legPart5();
+    legPart6();
+    legPart7();
+    legPart8();
+    glPopMatrix();
+
+}
+
+void legPart1() {
     
     glPushMatrix();
-    glTranslatef(0,-0.3,0.0);
-    glRotatef(90,0,0,1);
+
     glScalef(0.1,0.1,0.1);
     drawM();
     glPopMatrix();
-    
+}
    
+void legPart2() {
     glPushMatrix();
-    glTranslatef(0.22,-0.45,0.0);
-    glRotatef(180,1.0,0.0,0.0);
+
     glScalef(-0.1,0.1,0.1);
     drawI();
     glPopMatrix();
+}
     
+void legPart3() {
     glPushMatrix();
-    glTranslatef(-0.1,-0.7,0.0);
-    glRotatef(180,0.0,1.0,0.0);
-    glRotatef(180,0.0,0.0,1.0);
     glScalef(0.1,0.1,0.1);
     drawL();
     glPopMatrix();
+}
     
-
+void legPart4() {
     glPushMatrix();
-    glTranslatef(-0.03,-0.98,0.0);
-    glRotatef(180,0.0,1.0,0.0);
+
     glScalef(-0.1,0.1,0.1);
     drawK();
     glPopMatrix();
 }
+
+void legPart5() {
+    
+    glPushMatrix();
+    glScalef(0.1,0.1,0.1);
+    drawM();
+    glPopMatrix();
+}
+
+void legPart6() {
+    glPushMatrix();
+
+    glScalef(-0.1,0.1,0.1);
+    drawI();
+    glPopMatrix();
+}
+
+void legPart7() {
+    glPushMatrix();
+
+    glScalef(0.1,0.1,0.1);
+    drawL();
+    glPopMatrix();
+}
+
+void legPart8() {
+    glPushMatrix();
+
+    glScalef(-0.1,0.1,0.1);
+    drawK();
+    glPopMatrix();
+}
+

@@ -37,6 +37,11 @@ bool rotating=false;
 static float G_theta[3]; // View X,Y,Z
 static float G_zoom=0.6;
 
+//stuff for my sine wave 
+double angles[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+long start;
+const double ROTATION_FREQ = 0.03 ;
+
 //======================================================
 //Prototypes
 //======================================================
@@ -52,11 +57,16 @@ void rotateView(bool r);
 void idleCallBack ();
 void resetView();
 void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display);
-void jellyLeg();
-
-
-
-
+void jellyLeg(double array []);
+void reshapeCallBack(int w, int h);
+void part1(double array []);
+void part2(double array []);
+void part3(double array []);
+void part4(double array []);
+void part5(double array []);
+void part6(double array []);
+void part7(double array []);
+void part8(double array []);
 
 //======================================================
 // DRAW AXES and GRIDS
@@ -223,6 +233,18 @@ void viewControl()
 }
 
 
+void reshapeCallBack(int w, int h) 
+{
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+	if (w == 0 || h == 0) return;
+    if (w <= h) glOrtho(-3.0, 3.0, -3.0 * (GLfloat) h / (GLfloat) w, 3.0 * (GLfloat) h / (GLfloat) w, -10.0, 10.0);
+    else        glOrtho(-3.0 * (GLfloat) w / (GLfloat) h, 3.0 * (GLfloat) w / (GLfloat) h, -3.0, 3.0, -10.0, 10.0);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+
 //======================================================
 //DRAW INITIALS (Calls external funcs drawJ drawK drawR)
 //DRAWING OTHER PARTS OF THE ANIMAL
@@ -295,16 +317,127 @@ void jellyBody()
     
 }
 
-void jellyLeg()
+//======================================================
+// DrawJellyLeg
+//======================================================
+
+void jellyLeg(double array [])
 {
     //draw instance of jellyLegShape()
-    glPushMatrix();
-    //glTranslatef(0.5,0.0,0.0);
-    //glRotatef(0,0.0,1.0,0.0);
-    //glScalef(1.0,1.0,1.0);
-    jellyLegShape();
-    glPopMatrix();
+
+    part1(array);
+    //glPopMatrix();
 }
+
+
+void part1(double array [])
+{
+    glPushMatrix();
+    glTranslatef(0,-0.3,0.0);
+    glRotatef(90,0,0,1);
+    glRotated( array[1], 0,0,1 ) ;
+    legPart1();
+    //glPopMatrix();
+    
+    part2(array);
+   
+}
+
+void part2(double array [])
+{
+    glPushMatrix();
+    glTranslatef(0.22,-0.45,0.0);
+    glRotatef(180,1.0,0.0,0.0);
+    glRotated( array[2], 0,0,1 ) ;
+    legPart2();
+    //glPopMatrix();
+    
+    part3(array);
+    
+}
+
+void part3(double array [])
+{
+    glPushMatrix();
+    glTranslatef(-0.1,-0.7,0.0);
+    glRotatef(180,0.0,1.0,0.0);
+    glRotatef(180,0.0,0.0,1.0);
+
+    glRotated( array[3], 0,0,1 ) ;
+    legPart3();
+    //glPopMatrix();
+    
+    part4(array);
+    
+}
+
+void part4(double array [])
+{
+    glPushMatrix();
+    glTranslatef(-0.03,-0.98,0.0);
+    glRotatef(180,0.0,1.0,0.0);
+    glRotated( array[4], 0,0,1 ) ;
+    legPart4();
+    //glPopMatrix();
+    
+    part5(array);
+    
+}
+
+void part5(double array [])
+{
+    glPushMatrix();
+    glTranslatef(0,-1.45,0.0);
+    glRotatef(90,0,0,1);
+    glRotated( array[5], 0,0,1 ) ;
+    legPart5();
+    //glPopMatrix();
+    
+    part6(array);
+    
+}
+
+void part6(double array [])
+{    
+    glPushMatrix();
+    glTranslatef(0.22,-1.6,0.0);
+    glRotatef(180,1.0,0.0,0.0);
+    glRotated( array[6], 0,0,1 ) ;
+    legPart6();
+    //glPopMatrix();
+    
+    part7(array);
+    
+}
+
+void part7(double array [])
+{    
+    glPushMatrix();
+    glTranslatef(-0.1,-1.85,0.0);
+    glRotatef(180,0.0,1.0,0.0);
+    glRotatef(180,0.0,0.0,1.0);
+    glRotated( array[7], 0,0,1 ) ;
+    legPart7();
+    //glPopMatrix();
+    
+    part8(array);
+    
+}
+
+void part8(double array [])
+{    
+    glPushMatrix();
+    glTranslatef(-0.03,-2.13,0.0);
+    glRotatef(180,0.0,1.0,0.0);
+    glRotated( array[8], 0,0,1 ) ;
+    legPart8();
+    glPopMatrix();
+    for(int i=0;i<8;i++)glPopMatrix();
+}
+
+
+
+
 
 //======================================================
 // DISPLAY CALLBACK ROUTINE 
@@ -315,9 +448,24 @@ void displayCallBack(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     executeViewControl (yaw, pitch);
     
+    long duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
+    
+    //double degrees= duration * ROTATION_FREQ * 360 ;
+    
+    //Angles for leg wabble
+    const double MAX_ANGLE= 50.0 ; // maximum joint angle (+/-) in degrees
+
+    
+    for(int i=0;i<8;i++){
+        angles[i]= MAX_ANGLE * sin( 1 * duration ) ;
+    }
+    
+    
     //draw jellyfish body
     jellyBody();
-    jellyLeg();
+    jellyLeg(angles);
+    
+    
     
     //added grids and lines
     drawAxesAndGridLines(true, true, true);
@@ -340,11 +488,15 @@ int main(int argc, char** argv)
     glutCreateWindow("My Initials");
     
 	// Add Display & Mouse CallBacks
+    glutReshapeFunc(reshapeCallBack);
 	glutDisplayFunc(displayCallBack);
 	glutIdleFunc(NULL); // Starts the Idle Function as having no routine attached to it. This is modified in rotateView()
 	glutMouseFunc(mouseClickCallBack);
     glutMotionFunc(mouseMotionCallBack);
 	glutKeyboardFunc(keyboardCallBack);
+    
+    //need to add scaling ....????
+    //glEnable(GL_NORMALIZE);
     // Enable lighting
 
     
@@ -354,7 +506,7 @@ int main(int argc, char** argv)
 	glEnable(GL_DEPTH_TEST); /* Enable hidden--surface--removal */
   
 
-     
+    start = glutGet( GLUT_ELAPSED_TIME );
 	glutMainLoop();
     
 	return 0;
