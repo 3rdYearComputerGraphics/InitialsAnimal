@@ -142,7 +142,7 @@ void drawInitials()
     
     //draw initial L
     glPushMatrix();
-    //glTranslatef(0.4,-0.01,0.0);
+    glTranslatef(0.2,0.0,0.0);
     glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
     drawL();
@@ -150,7 +150,7 @@ void drawInitials()
     
     //draw initial I
     glPushMatrix();
-    //glTranslatef(0.4,-0.01,0.0);
+    glTranslatef(0.0,0.0,0.0);
     glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
     drawI();
@@ -158,7 +158,7 @@ void drawInitials()
     
     //draw initial M
     glPushMatrix();
-    //glTranslatef(0.4,-0.01,0.0);
+    glTranslatef(0.5,0.0,0.0);
     glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
     drawM();

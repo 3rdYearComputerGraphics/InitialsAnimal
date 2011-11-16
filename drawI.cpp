@@ -19,15 +19,15 @@ void drawI() {
     
     //vertical of I
     glPushMatrix();
-    glTranslatef(0.75,0.15,0.0);
+    glTranslatef(0.75,-0.6,0.0);
     //glRotatef(90,1.0,0.0,0.0);
-    glScalef(0.5,1.7,0.5);
+    glScalef(0.5,2.1,0.5);
     cube(0,1,2,3,4,5,6,7);
     glPopMatrix();
     
     //curve of I
     glPushMatrix();
-    glTranslatef(0.75,1.5,0.0);
+    glTranslatef(0.75,1.1,0.0);
     //glRotatef(90,0.0,1.0,0.0);
     glScalef(0.2,0.2,0.2);
     draw3Dcurve  (1.0,          //depth  

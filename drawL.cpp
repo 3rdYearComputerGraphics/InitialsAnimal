@@ -20,7 +20,7 @@ void drawL() {
     glPushMatrix();
     glTranslatef(1.8,-1.46,0.0);
     glRotatef(90,0.0,0.0,1.0);
-    glScalef(0.5,1.0,0.5);
+    glScalef(0.5,0.7,0.5);
     cube(0,1,2,3,4,5,6,7);
     glPopMatrix();
     
@@ -28,7 +28,7 @@ void drawL() {
     glPushMatrix();
     glTranslatef(0.75,0.15,0.0);
     //glRotatef(90,1.0,0.0,0.0);
-    glScalef(0.5,1.7,0.5);
+    glScalef(0.5,2.2,0.5);
     cube(0,1,2,3,4,5,6,7);
     glPopMatrix();
     

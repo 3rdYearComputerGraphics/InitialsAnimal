@@ -26,36 +26,36 @@ void drawM() {
     
     //left vertical of M
     glPushMatrix();
-    glTranslatef(0.0,0.0,0.0);
+    glTranslatef(0.0,-0.6,0.0);
     //glRotatef(90,1.0,0.0,0.0);
-    glScalef(0.5,2.2,0.5);
+    glScalef(0.5,2.1,0.5);
     cube(0,1,2,3,4,5,6,7);
     glPopMatrix();
     
     //left vertical of M
     glPushMatrix();
-    glTranslatef(1.2,0.0,0.0);
+    glTranslatef(1.5,-0.6,0.0);
     //glRotatef(90,1.0,0.0,0.0);
-    glScalef(0.5,2.2,0.5);
+    glScalef(0.5,2.1,0.5);
     cube(0,1,2,3,4,5,6,7);
     glPopMatrix();
     
     //left vertical of M
     glPushMatrix();
-    glTranslatef(2.4,0.0,0.0);
+    glTranslatef(3.0,-0.6,0.0);
     //glRotatef(90,1.0,0.0,0.0);
-    glScalef(0.5,2.2,0.5);
+    glScalef(0.5,2.1,0.5);
     cube(0,1,2,3,4,5,6,7);
     glPopMatrix();
     
     //right curve of M
     glPushMatrix();
-    glTranslatef(1.8,0.8,0.0);
+    glTranslatef(2.3,0.3,0.0);
     //glRotatef(90,0.0,1.0,0.0);
     glScalef(0.5,0.5,0.5);
     draw3Dcurve  (1.0,          //depth  
-				  0.7,          //inner radius
-				  1.8,
+				  1.0,          //inner radius
+				  2.0,
 				  0,          //start angle
 				  180,  //stop angle
 				  5.0);
@@ -63,12 +63,12 @@ void drawM() {
     
     //right curve of M
     glPushMatrix();
-    glTranslatef(0.6,0.8,0.0);
+    glTranslatef(0.7,0.3,0.0);
     //glRotatef(90,0.0,1.0,0.0);
     glScalef(0.5,0.5,0.5);
     draw3Dcurve  (1.0,          //depth  
-				  0.7,          //inner radius
-				  1.8,          //outer radius
+				  1.0,          //inner radius
+				  2.0,          //outer radius
 				  0,          //start angle
 				  180,  //stop angle
 				  5.0);

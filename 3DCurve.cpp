@@ -50,7 +50,7 @@ void draw3Dcurve(double depth, double r1, double r2, double theta_start, double 
 	glEnd();
 
 	// draw upper face
-	glColor3f(0.5, 0.5, 0.5);
+	glColor3f(0.9, 0.9, 0.9);
 	glBegin(GL_QUAD_STRIP);
 	for(thet=theta_start; thet<=theta_stop;thet+=theta_inc) {
 		x=cos(c*thet)*r2; y=sin(c*thet)*r2;
@@ -69,7 +69,7 @@ void draw3Dcurve(double depth, double r1, double r2, double theta_start, double 
 	glEnd();
 
 	// draw bottom end
-	glColor3f(0.5, 0.5, 0.5);
+	glColor3f(0.9, 0.9, 0.9);
 	glBegin(GL_POLYGON);
     x1=cos(c*theta_start)*r1; y1=sin(c*theta_start)*r1;
     x2=cos(c*theta_start)*r2; y2=sin(c*theta_start)*r2;
