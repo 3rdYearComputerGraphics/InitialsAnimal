@@ -105,7 +105,7 @@ void viewControl()
 	glScalef(G_zoom,G_zoom,G_zoom);
 }
 
-
+//hiya
 //======================================================
 //DRAW INITIALS (Calls external funcs drawJ drawK drawR)
 //======================================================
