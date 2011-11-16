@@ -473,7 +473,7 @@ void displayCallBack(void)
   
     
     //draw jellyfish body
-    //jellyBody();
+    jellyBody();
     jellyLeg(angles);
     
     
