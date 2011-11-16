@@ -50,7 +50,7 @@ void draw3Dcurve(double depth, double r1, double r2, double theta_start, double 
 	glEnd();
 
 	// draw upper face
-	glColor3f(0.9, 0.9, 0.9);
+	glColor3f(0.8, 0.8, 0.8);
 	glBegin(GL_QUAD_STRIP);
 	for(thet=theta_start; thet<=theta_stop;thet+=theta_inc) {
 		x=cos(c*thet)*r2; y=sin(c*thet)*r2;

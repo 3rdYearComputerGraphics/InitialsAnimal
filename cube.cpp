@@ -52,7 +52,7 @@ void polygon(int a, int b, int c , int d)
 	
 	glEnable(GL_LINE_SMOOTH);
 	glBegin(GL_LINE_LOOP);
-    //glColor3f(0,0,0);
+    glColor3f(0.8,0.8,0.8);
     glVertex3fv(vertices[a]);
     glVertex3fv(vertices[b]);
     glVertex3fv(vertices[c]);

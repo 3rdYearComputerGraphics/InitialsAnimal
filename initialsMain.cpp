@@ -32,6 +32,9 @@ float pitch0, yaw0;
 bool MousePressed;
 int mouseX0, mouseY0;
 bool rotating=false;
+//for view control
+static float G_theta[3]; // View X,Y,Z
+static float G_zoom=0.6;
 
 //======================================================
 //Prototypes
@@ -42,11 +45,16 @@ void displayCallBack(void);
 void executeViewControl(float y, float p);
 void viewControl();
 void drawInitials();
+void jellyBody();
 void keyboardCallBack(unsigned char key, int x, int y) ;
 void rotateView(bool r);
 void idleCallBack ();
 void resetView();
 void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display);
+
+
+
+
 
 //======================================================
 // DRAW AXES and GRIDS
@@ -152,16 +160,6 @@ void keyboardCallBack(unsigned char key, int x, int y) {
 	glutPostRedisplay();
 }
 
-void jellyBody();
-
-//======================================================
-//  GLOBAL VARIABLES
-//======================================================
-
-//for view control
-static float G_theta[3]; // View X,Y,Z
-static float G_zoom=0.6;
-
 
 
 //=====================================================
@@ -222,8 +220,7 @@ void viewControl()
 	glScalef(G_zoom,G_zoom,G_zoom);
 }
 
-//hiya
-//hiya back...
+
 //======================================================
 //DRAW INITIALS (Calls external funcs drawJ drawK drawR)
 //======================================================
@@ -283,7 +280,7 @@ void drawInitials()
 void jellyBody()
 {
     
-    for (int i=0; i<=180; i++) {
+    for (int i=0; i<=180; (i=i+10)) {
 
         //draw instance of jellyBodyShape()
         glPushMatrix();
@@ -311,6 +308,7 @@ void displayCallBack(void)
     
     //draw jellyfish body
     jellyBody();
+    
     
     drawAxesAndGridLines(true, true, true);
     
