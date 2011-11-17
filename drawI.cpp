@@ -20,6 +20,9 @@ void drawI() {
     
     //vertical of I
     glPushMatrix();
+    glTranslatef(-0.75,-0.6,0.0);
+    
+    glPushMatrix();
     glTranslatef(0.75,-0.6,0.0);
     //glRotatef(90,1.0,0.0,0.0);
     glScalef(0.5,2.1,0.5);
@@ -37,5 +40,6 @@ void drawI() {
 				  0,          //start angle
 				  360,  //stop angle
 				  5.0);
+    glPopMatrix();
     glPopMatrix();
 }   

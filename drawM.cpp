@@ -24,6 +24,9 @@ void drawM() {
     //    glScalef(0.5,1.0,0.5);
     //    cube(0,1,2,3,4,5,6,7);
     //    glPopMatrix();
+    glPushMatrix();
+    glTranslatef(1.5,-0.2,0.0);
+    glRotatef(270,0.0,0.0,1.0);
     
     //left vertical of M
     glPushMatrix();
@@ -73,5 +76,6 @@ void drawM() {
 				  0,          //start angle
 				  180,  //stop angle
 				  5.0);
+    glPopMatrix();
     glPopMatrix();
 }   

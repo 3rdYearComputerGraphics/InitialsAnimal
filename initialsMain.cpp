@@ -267,7 +267,7 @@ void drawInitials()
     //glTranslatef(-0.6,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    drawJ();
+    //drawJ();
     glPopMatrix();
     
     //draw intial K
@@ -275,7 +275,7 @@ void drawInitials()
     //glTranslatef(-0.4,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    drawK();
+    //drawK();
     glPopMatrix();
     
     //draw initial R
@@ -283,7 +283,7 @@ void drawInitials()
     //glTranslatef(-0.2,-0.01,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    drawR();
+    //drawR();
     glPopMatrix();
     
     //draw initial L
@@ -291,7 +291,7 @@ void drawInitials()
     //glTranslatef(0.2,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    drawL();
+    //drawL();
     glPopMatrix();
     
     //draw initial I
@@ -299,7 +299,7 @@ void drawInitials()
     //glTranslatef(0.0,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    drawI();
+    //drawI();
     glPopMatrix();
     
     //draw initial M
@@ -475,7 +475,8 @@ void displayCallBack(void)
     //draw jellyfish leg
     //jellyLeg(angles);
     
-    //
+    //Draw initials 
+    drawInitials();
     
 	glFlush();
 	glutSwapBuffers();

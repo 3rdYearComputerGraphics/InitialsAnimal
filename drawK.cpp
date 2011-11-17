@@ -17,6 +17,8 @@
 
 void drawK() {
     
+    glPushMatrix();    
+    glTranslatef(0.0,-1.5,0.0);
     //vertical of K
     glPushMatrix();
     glTranslatef(0.0,-0.1,0.0);
@@ -36,5 +38,6 @@ void drawK() {
 				  90.0,          //start angle
 				  270.0,  //stop angle
 				  5.0);
+    glPopMatrix();
     glPopMatrix();
 }   
