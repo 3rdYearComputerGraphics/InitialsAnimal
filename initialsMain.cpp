@@ -267,7 +267,7 @@ void drawInitials()
     //glTranslatef(-0.6,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    //drawJ();
+    drawJ();
     glPopMatrix();
     
     //draw intial K
@@ -275,7 +275,7 @@ void drawInitials()
     //glTranslatef(-0.4,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    //drawK();
+    drawK();
     glPopMatrix();
     
     //draw initial R
@@ -283,7 +283,7 @@ void drawInitials()
     //glTranslatef(-0.2,-0.01,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    //drawR();
+    drawR();
     glPopMatrix();
     
     //draw initial L
@@ -291,7 +291,7 @@ void drawInitials()
     //glTranslatef(0.2,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    //drawL();
+    drawL();
     glPopMatrix();
     
     //draw initial I
@@ -299,7 +299,7 @@ void drawInitials()
     //glTranslatef(0.0,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    //drawI();
+    drawI();
     glPopMatrix();
     
     //draw initial M
@@ -342,7 +342,7 @@ void jellyLeg(double array [])
     glPushMatrix();
     glTranslatef(0,-0.3,0.0);
     glRotatef(90,0,0,1);
-    //glRotated( array[1], 0,0,1 ) ;
+    glRotated( array[1], 0,0,1 ) ;
     legPart1();
     //glPopMatrix();
     
@@ -351,7 +351,7 @@ void jellyLeg(double array [])
     glRotatef(-90,0,0,1);
     glTranslatef(0.22,-0.15,0.0);
     glRotatef(180,1.0,0.0,0.0);
-    //glRotated( array[2], 0,0,1 ) ;
+    glRotated( array[2], 0,0,1 ) ;
     legPart2();
     //glPopMatrix();
     
@@ -362,7 +362,7 @@ void jellyLeg(double array [])
     glRotatef(180,0.0,1.0,0.0);
     glRotatef(180,0.0,0.0,1.0);
 
-    //glRotated( array[3], 0,0,1 ) ;
+    glRotated( array[3], 0,0,1 ) ;
     legPart3();
     //glPopMatrix();
     
@@ -460,12 +460,16 @@ void displayCallBack(void)
     printf("%ld\n", duration);
     printf("%ld\n", start);
     angles[0]= MAX_ANGLE * sin( 1.1 * t ) ;
-    angles[1]= MAX_ANGLE * sin( .6 * t ) ;
-    angles[2]= MAX_ANGLE * sin( .7 * t ) ;
-    angles[3]= MAX_ANGLE * sin( .8 * t ) ;
-    angles[4]= MAX_ANGLE * sin( .9 * t ) ;
+    printf("%f\n", angles[0]);
+    angles[1]= MAX_ANGLE * sin( 1.1 * t ) ;
+    printf("%f\n", angles[1]);
+    angles[2]= MAX_ANGLE * sin( 1.1 * t ) ;
+    printf("%f\n", angles[2]);
+    angles[3]= MAX_ANGLE * sin( 1.1 * t ) ;
+    printf("%f\n", angles[3]);
+    angles[4]= MAX_ANGLE * sin( 1.1 * t ) ;
     angles[5]= MAX_ANGLE * sin( 1.0 * t ) ;
-    angles[6]= MAX_ANGLE * sin( 1.1* t ) ;
+    angles[6]= MAX_ANGLE * sin( 1.1 * t ) ;
     angles[7]= MAX_ANGLE * sin( 1.2 * t ) ;
 
     
@@ -473,10 +477,10 @@ void displayCallBack(void)
     drawAxesAndGridLines(true, true, true);
     
     //draw jellyfish leg
-    //jellyLeg(angles);
+    jellyLeg(angles);
     
     //Draw initials 
-    drawInitials();
+    //drawInitials();
     
 	glFlush();
 	glutSwapBuffers();
