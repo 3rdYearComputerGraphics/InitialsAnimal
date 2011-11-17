@@ -501,7 +501,7 @@ int main(int argc, char** argv)
     
 	// Create and name window
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); // Need both double buffering and z buffer
-    glutInitWindowSize(800, 800);
+    glutInitWindowSize(600, 600);
     glutCreateWindow("My Initials");
     
 	// Add Display & Mouse CallBacks
