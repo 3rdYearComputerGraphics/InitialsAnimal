@@ -469,13 +469,7 @@ void displayCallBack(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     executeViewControl (yaw, pitch);
     
-    
-    
-    //double degrees= duration * ROTATION_FREQ * 360 ;
-    
-    //Angles for leg wabble
   
-    
     //draw jellyfish body
     jellyBody();
     
