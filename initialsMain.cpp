@@ -95,6 +95,7 @@ float square_dz= .003;
 Stopwatch* G_rStopwatch ;
 double slowRotationTimer;
 bool rotate = false;
+int randomMovement = 0;
 
 
 
@@ -534,11 +535,24 @@ void displayCallBack(void)
     
     //double start = G_pStopwatch->getValue() * 0.001 ; 
     
-    
+    //printf("%f%f%f\n", square_dx, square_dz, square_dy);
     printf("%f\n", G_sStopwatch->getValue() * 0.001-slowStartTimer);
     if(move){
         if((G_sStopwatch->getValue() * 0.001)-slowStartTimer > .01){
             slowStartTimer = G_sStopwatch->getValue() * 0.001;
+            randomMovement++;
+            if(randomMovement >= 1500){
+                double temp1 = (rand()%10);
+                double temp2 = (rand()%10);
+                double temp3 = (rand()%10);
+                
+                
+                square_dx = temp1/1000;
+                square_dy = temp2/1000;
+                square_dz = temp3/1000;
+                randomMovement = 0;
+                printf("%f%f%f\n", temp1/1000, temp2/1000, temp3/1000);
+            }
             square_x += square_dx; //Increment x-position of square
             square_y += square_dy; //Increment x-position of square
             square_z += square_dz;
