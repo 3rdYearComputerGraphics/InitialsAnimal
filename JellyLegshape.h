@@ -6,4 +6,4 @@
 //  Copyright 2011 Heriot Watt. All rights reserved.
 //
 
-extern void jellyLegShape();
+extern void jellyLegShape(double array[]);

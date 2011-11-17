@@ -22,9 +22,8 @@
 #include "3DCurve.h"
 
 
-void jellyLegShape();
+void jellyLegShape(double array[]);
 void legPart();
-void legBigPart();
 void legPart1();
 void legPart2();
 void legPart3();
@@ -34,19 +33,80 @@ void legPart6();
 void legPart7();
 void legPart8();
 
-void jellyLegShape()
+void jellyLegShape(double array[])
 {
+    
+    glPushMatrix();
+    //glTranslatef(0,-0.3,0.0);
+    //glRotatef(90,0,0,1);
+    glRotated( array[1], 0,0,1 ) ;
+    legPart1();
+
+    
+    
+    glPushMatrix();
+    glTranslatef(-0.02,-0.3,0.0);
+    glRotated( array[2], 0,0,1 ) ;
+    legPart2();
+  
+    glPushMatrix();
+    glTranslatef(-0.0,-0.22,0.0);
+    glRotated( array[3], 0,0,1 ) ;
+    legPart3();
 
     glPushMatrix();
-    legPart1();
-    legPart2();
-    legPart3();
+    glTranslatef(0.0,-0.28,0.0);
+    glRotated( array[4], 0,0,1 ) ;
     legPart4();
+
+    glPushMatrix();
+    glTranslatef(0,-0.27,0.0);
+    glRotated( array[5], 0,0,1 ) ;
     legPart5();
-    legPart6();
-    legPart7();
-    legPart8();
+
+//    glPushMatrix();
+//    glRotatef(-90,0,0,1);
+//    glTranslatef(0,-0.15,0.0);
+//    glRotatef(180,1.0,0.0,0.0);
+//    glRotated( array[6], 0,0,1 ) ;
+//    legPart6();
+//    //glPopMatrix();
+//    
+//    
+//    glPushMatrix();
+//    glRotatef(-180,1.0,0.0,0.0);
+//    glTranslatef(0.1,-0.250,0.0);
+//    glRotatef(180,0.0,1.0,0.0);
+//    glRotatef(180,0.0,0.0,1.0);
+//    glRotated( array[7], 0,0,1 ) ;
+//    legPart7();
+//    //glPopMatrix();
+//    
+//    
+//    glPushMatrix();
+//    glRotatef(-180,0.0,1.0,0.0);
+//    glRotatef(-180,0.0,0.0,1.0);
+//    glTranslatef(-0.03,-0.23,0.0);
+//    glRotatef(180,0.0,1.0,0.0);
+//    glRotated( array[8], 0,0,1 ) ;
+//    legPart8();
+    
+    
+    //glTranslatef(0.5,0.0,0.0);
+    //glRotatef(0,0.0,1.0,0.0);
+    //glScalef(1.0,1.0,1.0);
+    //jellyLegShape();
     glPopMatrix();
+    glPopMatrix();
+    glPopMatrix();
+    glPopMatrix();
+    glPopMatrix();
+    glPopMatrix();
+    glPopMatrix();
+    glPopMatrix();
+    
+
+  
 
 }
 

@@ -335,98 +335,7 @@ void jellyBody()
 void jellyLeg(double array [])
 {
     //draw instance of jellyLegShape()
-
-
-    //glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(0,-0.3,0.0);
-    glRotatef(90,0,0,1);
-    glRotated( array[1], 0,0,1 ) ;
-    legPart1();
-    //glPopMatrix();
-    
-
-    glPushMatrix();
-    glRotatef(-90,0,0,1);
-    glTranslatef(0.22,-0.15,0.0);
-    glRotatef(180,1.0,0.0,0.0);
-    glRotated( array[2], 0,0,1 ) ;
-    legPart2();
-    //glPopMatrix();
-    
-
-    glPushMatrix();
-    glRotatef(-180,1.0,0.0,0.0);
-    glTranslatef(-0.32,-0.25,0.0);
-    glRotatef(180,0.0,1.0,0.0);
-    glRotatef(180,0.0,0.0,1.0);
-
-    glRotated( array[3], 0,0,1 ) ;
-    legPart3();
-    //glPopMatrix();
-    
-
-    glPushMatrix();
-    glRotatef(-180,0.0,1.0,0.0);
-    glRotatef(-180,0.0,0.0,1.0);
-    glTranslatef(0.0,-0.28,0.0);
-    glRotatef(180,0.0,1.0,0.0);
-    glRotated( array[4], 0,0,1 ) ;
-    legPart4();
-    //glPopMatrix();
-    
-
-    glPushMatrix();
-    glRotatef(-180,0.0,1.0,0.0);
-    glTranslatef(0,-0.47,0.0);
-    glRotatef(90,0,0,1);
-    glRotated( array[5], 0,0,1 ) ;
-    legPart5();
-    //glPopMatrix();
-    
- 
-    glPushMatrix();
-    glRotatef(-90,0,0,1);
-    glTranslatef(0,-0.15,0.0);
-    glRotatef(180,1.0,0.0,0.0);
-    glRotated( array[6], 0,0,1 ) ;
-    legPart6();
-    //glPopMatrix();
-    
-  
-    glPushMatrix();
-    glRotatef(-180,1.0,0.0,0.0);
-    glTranslatef(0.1,-0.250,0.0);
-    glRotatef(180,0.0,1.0,0.0);
-    glRotatef(180,0.0,0.0,1.0);
-    glRotated( array[7], 0,0,1 ) ;
-    legPart7();
-    //glPopMatrix();
-
-
-    glPushMatrix();
-    glRotatef(-180,0.0,1.0,0.0);
-    glRotatef(-180,0.0,0.0,1.0);
-    glTranslatef(-0.03,-0.23,0.0);
-    glRotatef(180,0.0,1.0,0.0);
-    glRotated( array[8], 0,0,1 ) ;
-    legPart8();
-    
-    
-    //glTranslatef(0.5,0.0,0.0);
-    //glRotatef(0,0.0,1.0,0.0);
-    //glScalef(1.0,1.0,1.0);
-    //jellyLegShape();
-    glPopMatrix();
-    glPopMatrix();
-    glPopMatrix();
-    glPopMatrix();
-    glPopMatrix();
-    glPopMatrix();
-    glPopMatrix();
-    glPopMatrix();
-    
+    jellyLegShape(array);
     
 }
 
@@ -447,7 +356,7 @@ void displayCallBack(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     executeViewControl (yaw, pitch);
     
-    duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
+    //duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
     //draw jellyfish body
     //jellyBody();
     
@@ -460,16 +369,12 @@ void displayCallBack(void)
     printf("%ld\n", duration);
     printf("%ld\n", start);
     angles[0]= MAX_ANGLE * sin( 1.1 * t ) ;
-    printf("%f\n", angles[0]);
-    angles[1]= MAX_ANGLE * sin( 1.1 * t ) ;
-    printf("%f\n", angles[1]);
-    angles[2]= MAX_ANGLE * sin( 1.1 * t ) ;
-    printf("%f\n", angles[2]);
-    angles[3]= MAX_ANGLE * sin( 1.1 * t ) ;
-    printf("%f\n", angles[3]);
-    angles[4]= MAX_ANGLE * sin( 1.1 * t ) ;
+    angles[1]= MAX_ANGLE * sin( .6 * t ) ;
+    angles[2]= MAX_ANGLE * sin( .7 * t ) ;
+    angles[3]= MAX_ANGLE * sin( .8 * t ) ;
+    angles[4]= MAX_ANGLE * sin( .9 * t ) ;
     angles[5]= MAX_ANGLE * sin( 1.0 * t ) ;
-    angles[6]= MAX_ANGLE * sin( 1.1 * t ) ;
+    angles[6]= MAX_ANGLE * sin( 1.1* t ) ;
     angles[7]= MAX_ANGLE * sin( 1.2 * t ) ;
 
     
