@@ -50,7 +50,6 @@ bool rotating=false;
 static float G_theta[3]; // View X,Y,Z
 static float G_zoom=0.6;
 
-
 // Jelly Legs sine wave
 //======================================================
 double angles1[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
@@ -62,6 +61,7 @@ const double MAX_ANGLE= 50.0 ;
 long duration;
 double slowStartTimer;
 Stopwatch* G_pStopwatch ;
+
 
 
 // Jelly Movement (bounaries) 
@@ -76,6 +76,7 @@ int lastZ;
 
 Stopwatch* G_sStopwatch ;
 bool move = false;
+
 
 
 // GLOBAL VARIABLES WRITTEN TO BY motionCallBack( )
@@ -183,9 +184,7 @@ void idleCallBack (){
         slowRotationTimer = G_rStopwatch->getValue() * 0.001;
     }
     glutPostRedisplay();
-
 }
-
 
 
 
@@ -209,6 +208,7 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             if ( G_rStopwatch->isStopped() )
             {
                 yaw0 = 0;
+                pitch0 = 0;
                 rotate = true;
                 G_rStopwatch->start() ;
                 glutIdleFunc( idleCallBack ) ;
@@ -283,7 +283,6 @@ void mouseClickCallBack(int button, int state, int x, int y)
 			pitch0 = G_theta[0]; 
 			yaw0 = G_theta[1];
 			mouseX0 = x; mouseY0 = y;
-
             rotate = true;
 			break;
 		default:
@@ -291,7 +290,6 @@ void mouseClickCallBack(int button, int state, int x, int y)
 			//MousePressed = false;
 
             rotate = false;
-
 			break;
     }
 } 
