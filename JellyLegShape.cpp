@@ -64,38 +64,22 @@ void jellyLegShape(double array[])
     glRotated( array[5], 0,0,1 ) ;
     legPart5();
 
-//    glPushMatrix();
-//    glRotatef(-90,0,0,1);
-//    glTranslatef(0,-0.15,0.0);
-//    glRotatef(180,1.0,0.0,0.0);
-//    glRotated( array[6], 0,0,1 ) ;
-//    legPart6();
-//    //glPopMatrix();
-//    
-//    
-//    glPushMatrix();
-//    glRotatef(-180,1.0,0.0,0.0);
-//    glTranslatef(0.1,-0.250,0.0);
-//    glRotatef(180,0.0,1.0,0.0);
-//    glRotatef(180,0.0,0.0,1.0);
-//    glRotated( array[7], 0,0,1 ) ;
-//    legPart7();
-//    //glPopMatrix();
-//    
-//    
-//    glPushMatrix();
-//    glRotatef(-180,0.0,1.0,0.0);
-//    glRotatef(-180,0.0,0.0,1.0);
-//    glTranslatef(-0.03,-0.23,0.0);
-//    glRotatef(180,0.0,1.0,0.0);
-//    glRotated( array[8], 0,0,1 ) ;
-//    legPart8();
+    glPushMatrix();
+    glTranslatef(0,-0.35,0.0);
+    glRotated( array[6], 0,0,1 ) ;
+    legPart6();
+
+    glPushMatrix();
+    glTranslatef(0,-0.23,0.0);
+    glRotated( array[7], 0,0,1 ) ;
+    legPart7();
+
+    glPushMatrix();
+    glTranslatef(-0.0,-0.26,0.0);
+    glRotated( array[8], 0,0,1 ) ;
+    legPart8();
     
-    
-    //glTranslatef(0.5,0.0,0.0);
-    //glRotatef(0,0.0,1.0,0.0);
-    //glScalef(1.0,1.0,1.0);
-    //jellyLegShape();
+
     glPopMatrix();
     glPopMatrix();
     glPopMatrix();
