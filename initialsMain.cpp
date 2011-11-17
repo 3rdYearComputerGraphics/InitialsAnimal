@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <GLUT/glut.h>
 #include <math.h>
+#include "time.h"
 #include <stdio.h>
 #include "3Dcurve.h"
 #include "cube.h"
@@ -56,11 +57,17 @@ double angles1[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angles2[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angles3[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angles4[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+double angleRandomSeeds1 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+double angleRandomSeeds2 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+double angleRandomSeeds3 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+double angleRandomSeeds4 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 const double ROTATION_FREQ = 0.03 ;
-const double MAX_ANGLE= 50.0 ;
+const double MAX_ANGLE= 20.0 ;
 long duration;
 double slowStartTimer;
 Stopwatch* G_pStopwatch ;
+bool finishedRandomising = false;
+double randomDouble = 0;
 
 
 
@@ -114,6 +121,7 @@ void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display)
 void jellyLeg(double array []);
 void reshapeCallBack(int w, int h);
 void animate() ;
+void randomiseSeeds(double array[]);
 
 
 
@@ -178,7 +186,7 @@ void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display)
 //======================================================
 
 void idleCallBack (){
-
+    
     if((G_rStopwatch->getValue() * 0.001)-slowRotationTimer > 1){
         yaw0 +=15;
         slowRotationTimer = G_rStopwatch->getValue() * 0.001;
@@ -288,7 +296,7 @@ void mouseClickCallBack(int button, int state, int x, int y)
 		default:
 		case GLUT_UP:
 			//MousePressed = false;
-
+            
             rotate = false;
 			break;
     }
@@ -393,13 +401,13 @@ void jellyBody()
     glPushMatrix();
     glTranslatef(square_x, square_y, 0.0);
     //glScalef(100, 100, 100);
-        //printf("%d\n", square_x);
-        //printf("%d\n", square_y);
+    //printf("%d\n", square_x);
+    //printf("%d\n", square_y);
     
     
     for (int i=0; i<=180; (i=i+10)) {
-
-
+        
+        
         //draw instance of jellyBodyShape()
         glPushMatrix();
         //glTranslatef(0.5,0.0,0.0);
@@ -408,33 +416,33 @@ void jellyBody()
         jellyBodyShape();
         glPopMatrix();
         
-
+        
     }
-
-        
-        glPushMatrix();
-
-        glRotatef(90,0.0,1.0,0.0);
-
-        jellyLeg(angles1);
-        
-        glRotatef(90,0.0,1.0,0.0);
-        
-        jellyLeg(angles2);
-        
-        glRotatef(90,0.0,1.0,0.0);
-        
-        jellyLeg(angles3);
-        
-        glRotatef(90,0.0,1.0,0.0);
-        
-        jellyLeg(angles4);
-        
-        glPopMatrix();
-        
+    
+    
+    glPushMatrix();
+    
+    glRotatef(90,0.0,1.0,0.0);
+    
+    jellyLeg(angles1);
+    
+    glRotatef(90,0.0,1.0,0.0);
+    
+    jellyLeg(angles2);
+    
+    glRotatef(90,0.0,1.0,0.0);
+    
+    jellyLeg(angles3);
+    
+    glRotatef(90,0.0,1.0,0.0);
+    
+    jellyLeg(angles4);
     
     glPopMatrix();
-  
+    
+    
+    glPopMatrix();
+    
 }
 
 //======================================================
@@ -463,9 +471,9 @@ void displayCallBack(void)
 {
 	// display callback,
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+    
     if(rotate)executeViewControl (yaw, pitch);
-
+    
     
     //duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
     //draw jellyfish body
@@ -473,62 +481,71 @@ void displayCallBack(void)
     
     // Get elapsed animation time (in seconds) from stopwatch.
     double t= G_pStopwatch->getValue() * 0.001 ;  
-
+    
     
     // Set animation/rotation of scene. 
     //double degrees= t * ROTATION_FREQ * 360 ;
     
-
-    angles1[0]= MAX_ANGLE * sin( 1.1 * t ) ;
-    angles1[1]= MAX_ANGLE * sin( .6 * t ) ;
-    angles1[2]= MAX_ANGLE * sin( .7 * t ) ;
-    angles1[3]= MAX_ANGLE * sin( .8 * t ) ;
-    angles1[4]= MAX_ANGLE * sin( .9 * t ) ;
-    angles1[5]= MAX_ANGLE * sin( 1.0 * t ) ;
-    angles1[6]= MAX_ANGLE * sin( 1.1* t ) ;
-    angles1[7]= MAX_ANGLE * sin( 1.2 * t ) ;
     
-    angles2[0]= MAX_ANGLE * sin( 1.1 * t ) ;
-    angles2[1]= MAX_ANGLE * sin( .6 * t ) ;
-    angles2[2]= MAX_ANGLE * sin( .7 * t ) ;
-    angles2[3]= MAX_ANGLE * sin( .8 * t ) ;
-    angles2[4]= MAX_ANGLE * sin( .9 * t ) ;
-    angles2[5]= MAX_ANGLE * sin( 1.0 * t ) ;
-    angles2[6]= MAX_ANGLE * sin( 1.1* t ) ;
-    angles2[7]= MAX_ANGLE * sin( 1.2 * t ) ;
     
-    angles3[0]= MAX_ANGLE * sin( 1.1 * t ) ;
-    angles3[1]= MAX_ANGLE * sin( .6 * t ) ;
-    angles3[2]= MAX_ANGLE * sin( .7 * t ) ;
-    angles3[3]= MAX_ANGLE * sin( .8 * t ) ;
-    angles3[4]= MAX_ANGLE * sin( .9 * t ) ;
-    angles3[5]= MAX_ANGLE * sin( 1.0 * t ) ;
-    angles3[6]= MAX_ANGLE * sin( 1.1* t ) ;
-    angles3[7]= MAX_ANGLE * sin( 1.2 * t ) ;
+    angles1[0]= MAX_ANGLE * sin( angleRandomSeeds1[0] * t ) ;
+    angles1[1]= MAX_ANGLE * sin( angleRandomSeeds1[1] * t ) ;
+    angles1[2]= MAX_ANGLE * sin( angleRandomSeeds1[2] * t ) ;
+    angles1[3]= MAX_ANGLE * sin( angleRandomSeeds1[3] * t ) ;
+    angles1[4]= MAX_ANGLE * sin( angleRandomSeeds1[4] * t ) ;
+    angles1[5]= MAX_ANGLE * sin( angleRandomSeeds1[5] * t ) ;
+    angles1[6]= MAX_ANGLE * sin( angleRandomSeeds1[6] * t ) ;
+    angles1[7]= MAX_ANGLE * sin( angleRandomSeeds1[7] * t ) ;
     
-    angles4[0]= MAX_ANGLE * sin( 1.1 * t ) ;
-    angles4[1]= MAX_ANGLE * sin( .6 * t ) ;
-    angles4[2]= MAX_ANGLE * sin( .7 * t ) ;
-    angles4[3]= MAX_ANGLE * sin( .8 * t ) ;
-    angles4[4]= MAX_ANGLE * sin( .9 * t ) ;
-    angles4[5]= MAX_ANGLE * sin( 1.0 * t ) ;
-    angles4[6]= MAX_ANGLE * sin( 1.1* t ) ;
-    angles4[7]= MAX_ANGLE * sin( 1.2 * t ) ;
-
+    
+    
+    angles2[0]= MAX_ANGLE * sin( angleRandomSeeds2[0] * t ) ;
+    angles2[1]= MAX_ANGLE * sin( angleRandomSeeds2[1] * t ) ;
+    angles2[2]= MAX_ANGLE * sin( angleRandomSeeds2[2] * t ) ;
+    angles2[3]= MAX_ANGLE * sin( angleRandomSeeds2[3] * t ) ;
+    angles2[4]= MAX_ANGLE * sin( angleRandomSeeds2[4] * t ) ;
+    angles2[5]= MAX_ANGLE * sin( angleRandomSeeds2[5] * t ) ;
+    angles2[6]= MAX_ANGLE * sin( angleRandomSeeds2[6] * t ) ;
+    angles2[7]= MAX_ANGLE * sin( angleRandomSeeds2[7] * t ) ;
+    
+    
+    
+    angles3[0]= MAX_ANGLE * sin( angleRandomSeeds3[0] * t ) ;
+    angles3[1]= MAX_ANGLE * sin( angleRandomSeeds3[1] * t ) ;
+    angles3[2]= MAX_ANGLE * sin( angleRandomSeeds3[2] * t ) ;
+    angles3[3]= MAX_ANGLE * sin( angleRandomSeeds3[3] * t ) ;
+    angles3[4]= MAX_ANGLE * sin( angleRandomSeeds3[4] * t ) ;
+    angles3[5]= MAX_ANGLE * sin( angleRandomSeeds3[5] * t ) ;
+    angles3[6]= MAX_ANGLE * sin( angleRandomSeeds3[6] * t ) ;
+    angles3[7]= MAX_ANGLE * sin( angleRandomSeeds3[7] * t ) ;
+    
+    
+    
+    angles4[0]= MAX_ANGLE * sin( angleRandomSeeds4[0] * t ) ;
+    angles4[1]= MAX_ANGLE * sin( angleRandomSeeds4[1] * t ) ;
+    angles4[2]= MAX_ANGLE * sin( angleRandomSeeds4[2] * t ) ;
+    angles4[3]= MAX_ANGLE * sin( angleRandomSeeds4[3] * t ) ;
+    angles4[4]= MAX_ANGLE * sin( angleRandomSeeds4[4] * t ) ;
+    angles4[5]= MAX_ANGLE * sin( angleRandomSeeds4[5] * t ) ;
+    angles4[6]= MAX_ANGLE * sin( angleRandomSeeds4[6] * t ) ;
+    angles4[7]= MAX_ANGLE * sin( angleRandomSeeds4[7] * t ) ;
+    
+    
+    
     //double start = G_pStopwatch->getValue() * 0.001 ; 
     
     
-     printf("%f\n", G_sStopwatch->getValue() * 0.001-slowStartTimer);
+    printf("%f\n", G_sStopwatch->getValue() * 0.001-slowStartTimer);
     if(move){
         if((G_sStopwatch->getValue() * 0.001)-slowStartTimer > .01){
             slowStartTimer = G_sStopwatch->getValue() * 0.001;
-    square_x += square_dx; //Increment x-position of square
-    square_y += square_dy; //Increment x-position of square
-    square_z += square_dz;
-    //printf("%d %d %d %d \n", square_x,square_y, square_dx, square_dy);
-	if (square_x > w_width || square_x <=0) square_dx *= -1; //Reverse direction if at edges
-    if (square_y > w_height || square_y <=0) square_dy *= -1;
-    if (square_z > w_depth || square_z <=0) square_dz *= -1;//Reverse direction if at edges
+            square_x += square_dx; //Increment x-position of square
+            square_y += square_dy; //Increment x-position of square
+            square_z += square_dz;
+            //printf("%d %d %d %d \n", square_x,square_y, square_dx, square_dy);
+            if (square_x > w_width || square_x <=0) square_dx *= -1; //Reverse direction if at edges
+            if (square_y > w_height || square_y <=0) square_dy *= -1;
+            if (square_z > w_depth || square_z <=0) square_dz *= -1;//Reverse direction if at edges
         }
     }
     
@@ -545,6 +562,17 @@ void displayCallBack(void)
 	glutSwapBuffers();
 }
 
+
+void randomiseSeeds(double array[])
+{
+    for(int i=0;i<8;i++){
+        randomDouble = (rand()%20);
+        //if(randomDouble > 1.5)randomDouble = 0;else{randomDouble+=.1;}
+        array[i]=randomDouble/10;
+        printf("%f\n", randomDouble/10);
+    }
+}
+
 //======================================================
 // MAIN PROGRAM
 //======================================================
@@ -552,6 +580,13 @@ int main(int argc, char** argv)
 {
     // Allow cmd line arguments to be passed to the glut
 	glutInit(&argc, argv);
+    
+    srand ((unsigned)time (0));
+    
+    randomiseSeeds(angleRandomSeeds1);
+    randomiseSeeds(angleRandomSeeds2);
+    randomiseSeeds(angleRandomSeeds3);
+    randomiseSeeds(angleRandomSeeds4);
     
 	// Create and name window
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); // Need both double buffering and z buffer
@@ -570,7 +605,7 @@ int main(int argc, char** argv)
     //Nope, already done in the reshapeCallback on line 508
     //glEnable(GL_NORMALIZE);
     // Enable lighting
-
+    
     G_pStopwatch= new Stopwatch ;
     G_sStopwatch= new Stopwatch ;
     G_rStopwatch= new Stopwatch ;
@@ -579,8 +614,8 @@ int main(int argc, char** argv)
 	glColor3f(1.0, 0.0, 0.0);
 	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 	glEnable(GL_DEPTH_TEST); /* Enable hidden--surface--removal */
-  
-
+    
+    
     //start = glutGet( GLUT_ELAPSED_TIME );
 	glutMainLoop();
     
