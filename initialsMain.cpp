@@ -501,7 +501,7 @@ int main(int argc, char** argv)
     
 	// Create and name window
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); // Need both double buffering and z buffer
-    glutInitWindowSize(500, 500);
+    glutInitWindowSize(800, 800);
     glutCreateWindow("My Initials");
     
 	// Add Display & Mouse CallBacks
@@ -513,6 +513,7 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(keyboardCallBack);
     
     //need to add scaling ....????
+    //Nope, already done in the reshapeCallback on line 508
     //glEnable(GL_NORMALIZE);
     // Enable lighting
 
