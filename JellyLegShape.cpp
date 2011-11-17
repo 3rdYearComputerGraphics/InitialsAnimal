@@ -37,12 +37,9 @@ void jellyLegShape(double array[])
 {
     
     glPushMatrix();
-    //glTranslatef(0,-0.3,0.0);
-    //glRotatef(90,0,0,1);
+
     glRotated( array[1], 0,0,1 ) ;
     legPart1();
-
-    
     
     glPushMatrix();
     glTranslatef(-0.02,-0.3,0.0);

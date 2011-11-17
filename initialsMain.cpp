@@ -40,11 +40,34 @@ static float G_zoom=0.6;
 
 //stuff for my sine wave 
 double angles[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+double angles2[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+double angles3[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+double angles4[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+
 long start;
 const double ROTATION_FREQ = 0.03 ;
 const double MAX_ANGLE= 50.0 ;
 long duration;
 Stopwatch* G_pStopwatch ;
+Stopwatch* G_sStopwatch ;
+bool move = false;
+double slowStartTimer;
+
+//for jelly movement
+// Window size
+int w_height=3;
+int w_width=3;
+
+//MY Variables
+int lastX;
+int lastY;
+
+//====================================================================
+// GLOBAL VARIABLES WRITTEN TO BY motionCallBack( )
+//====================================================================
+double square_x, square_y; // position of square
+float square_dx = .001; // incremental change insquare_x
+float square_dy= .003; // incremental change insquare_x
 
 //======================================================
 //Prototypes
@@ -171,10 +194,27 @@ void keyboardCallBack(unsigned char key, int x, int y) {
                 G_pStopwatch->stop() ;
                 glutIdleFunc( NULL ) ;
             }
-
+            break;
+        case 'm': 
+            if ( G_sStopwatch->isStopped() )
+            {
+                move = true;
+                G_sStopwatch->start() ;
+                glutIdleFunc( animate ) ;
+            }
+            else
+            {
+                G_sStopwatch->stop() ;
+                glutIdleFunc( NULL ) ;
+            }
+            break;
+        case 's': 
+            move = false;
+            glutIdleFunc( NULL ) ;
             break;
         case 'R':
             resetView();
+            glutIdleFunc( NULL ) ;
             break;
         default:
             printf("Press b - back fill; f - front fill; l - line; i - increment; or d - decrement; r - rotate; R - reset view\n");
@@ -313,6 +353,12 @@ void drawInitials()
 
 void jellyBody()
 {
+    glPushMatrix();
+    glTranslatef(square_x, square_y, 0.0);
+    //glScalef(100, 100, 100);
+        //printf("%d\n", square_x);
+        //printf("%d\n", square_y);
+    
     
     for (int i=0; i<=180; (i=i+10)) {
 
@@ -324,8 +370,26 @@ void jellyBody()
         //glScalef(1.0,1.0,1.0);
         jellyBodyShape();
         glPopMatrix();
+        
+
     }
     
+    for (int i=0; i<=360; i+=90) {
+        
+        
+        glPushMatrix();
+
+        glRotatef(i,0.0,1.0,0.0);
+
+        jellyLeg(angles);
+        
+        glPopMatrix();
+        
+        
+    }
+    
+    glPopMatrix();
+  
 }
 
 //======================================================
@@ -358,16 +422,16 @@ void displayCallBack(void)
     
     //duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
     //draw jellyfish body
-    //jellyBody();
+    jellyBody();
     
     // Get elapsed animation time (in seconds) from stopwatch.
     double t= G_pStopwatch->getValue() * 0.001 ;  
+
     
     // Set animation/rotation of scene. 
     //double degrees= t * ROTATION_FREQ * 360 ;
     
-    printf("%ld\n", duration);
-    printf("%ld\n", start);
+
     angles[0]= MAX_ANGLE * sin( 1.1 * t ) ;
     angles[1]= MAX_ANGLE * sin( .6 * t ) ;
     angles[2]= MAX_ANGLE * sin( .7 * t ) ;
@@ -377,12 +441,26 @@ void displayCallBack(void)
     angles[6]= MAX_ANGLE * sin( 1.1* t ) ;
     angles[7]= MAX_ANGLE * sin( 1.2 * t ) ;
 
+    //double start = G_pStopwatch->getValue() * 0.001 ; 
+    
+    
+     printf("%f\n", G_sStopwatch->getValue() * 0.001-slowStartTimer);
+    if(move){
+        if((G_sStopwatch->getValue() * 0.001)-slowStartTimer > .01){
+            slowStartTimer = G_sStopwatch->getValue() * 0.001;
+    square_x += square_dx; //Increment x-position of square
+    square_y += square_dy; //Increment x-position of square
+    printf("%d %d %d %d \n", square_x,square_y, square_dx, square_dy);
+	if (square_x > w_width || square_x <=0) square_dx *= -1; //Reverse direction if at edges
+    if (square_y > w_height || square_y <=0) square_dy *= -1; //Reverse direction if at edges
+        }
+    }
     
     //added grids and lines
     drawAxesAndGridLines(true, true, true);
     
     //draw jellyfish leg
-    jellyLeg(angles);
+    //jellyLeg(angles);
     
     //Draw initials 
     //drawInitials();
@@ -401,7 +479,7 @@ int main(int argc, char** argv)
     
 	// Create and name window
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); // Need both double buffering and z buffer
-    glutInitWindowSize(600, 600);
+    glutInitWindowSize(800, 800);
     glutCreateWindow("My Initials");
     
 	// Add Display & Mouse CallBacks
@@ -418,6 +496,7 @@ int main(int argc, char** argv)
     // Enable lighting
 
     G_pStopwatch= new Stopwatch ;
+    G_sStopwatch= new Stopwatch ;
     
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glColor3f(1.0, 0.0, 0.0);
