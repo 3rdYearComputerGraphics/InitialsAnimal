@@ -40,7 +40,7 @@ static float G_zoom=0.6;
 //stuff for my sine wave 
 double angles[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 long start;
-const double ROTATION_FREQ = 0.03 ;
+const double ROTATION_FREQ = 1 ;
 const double MAX_ANGLE= 50.0 ;
 long duration;
 
@@ -56,7 +56,7 @@ void drawInitials();
 void jellyBody();
 void keyboardCallBack(unsigned char key, int x, int y) ;
 void rotateView(bool r);
-void idleCallBack ();
+void rotatingFunc(int extra);
 void resetView();
 void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display);
 void jellyLeg(double array []);
@@ -128,14 +128,19 @@ void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display)
 // VIEW CONTROL ROUTINES
 //======================================================
 
-void idleCallBack (){
-	yaw=yaw+.25;
-    glutPostRedisplay();
+void rotatingFunc(int extra){
+   if(extra==1)
+   {
+       yaw=yaw+.25;
+       glutPostRedisplay();
+       rotateView(rotating);
+   }
 }
 
 void rotateView(bool r){
 	rotating = r;
-	if (r) glutIdleFunc(idleCallBack); else glutIdleFunc(NULL);
+	if (r) glutTimerFunc(100,rotatingFunc,1);
+    else glutTimerFunc(100,rotatingFunc,0);
 }
 
 void resetView(){
@@ -307,6 +312,10 @@ void drawInitials()
     drawM();
     glPopMatrix();
 }
+
+//======================================================
+// DrawJellyBody
+ //======================================================
 
 void jellyBody()
 {
