@@ -38,8 +38,9 @@ bool rotating=false;
 static float G_theta[3]; // View X,Y,Z
 static float G_zoom=0.6;
 
-//stuff for my sine wave 
-double angles[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+// Jelly Legs sine wave
+//======================================================
+double angles1[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angles2[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angles3[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angles4[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
@@ -53,21 +54,23 @@ Stopwatch* G_sStopwatch ;
 bool move = false;
 double slowStartTimer;
 
-//for jelly movement
-// Window size
+// Jelly Movement (bounaries) 
+//======================================================
 int w_height=3;
 int w_width=3;
+int w_depth =3;
 
-//MY Variables
 int lastX;
 int lastY;
+int lastZ;
 
 //====================================================================
 // GLOBAL VARIABLES WRITTEN TO BY motionCallBack( )
 //====================================================================
-double square_x, square_y; // position of square
+double square_x, square_y, square_z; // position of square
 float square_dx = .001; // incremental change insquare_x
 float square_dy= .003; // incremental change insquare_x
+float square_dz= .003;
 
 //======================================================
 //Prototypes
@@ -149,7 +152,7 @@ void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display)
 
 void idleCallBack (){
 	yaw=yaw+.25;
-    glutPostRedisplay();
+    //glutPostRedisplay();
 }
 
 void rotateView(bool r){
@@ -249,10 +252,12 @@ void mouseClickCallBack(int button, int state, int x, int y)
 			pitch0 = G_theta[0]; 
 			yaw0 = G_theta[1];
 			mouseX0 = x; mouseY0 = y;
+            rotating = true;
 			break;
 		default:
 		case GLUT_UP:
 			MousePressed = false;
+            rotating = false;
 			break;
     }
 } 
@@ -373,20 +378,28 @@ void jellyBody()
         
 
     }
-    
-    for (int i=0; i<=360; i+=90) {
-        
+
         
         glPushMatrix();
 
-        glRotatef(i,0.0,1.0,0.0);
+        glRotatef(90,0.0,1.0,0.0);
 
-        jellyLeg(angles);
+        jellyLeg(angles1);
+        
+        glRotatef(90,0.0,1.0,0.0);
+        
+        jellyLeg(angles2);
+        
+        glRotatef(90,0.0,1.0,0.0);
+        
+        jellyLeg(angles3);
+        
+        glRotatef(90,0.0,1.0,0.0);
+        
+        jellyLeg(angles4);
         
         glPopMatrix();
         
-        
-    }
     
     glPopMatrix();
   
@@ -418,7 +431,8 @@ void displayCallBack(void)
 {
 	// display callback,
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    executeViewControl (yaw, pitch);
+    
+    if(rotating)executeViewControl (yaw, pitch);
     
     //duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
     //draw jellyfish body
@@ -432,14 +446,41 @@ void displayCallBack(void)
     //double degrees= t * ROTATION_FREQ * 360 ;
     
 
-    angles[0]= MAX_ANGLE * sin( 1.1 * t ) ;
-    angles[1]= MAX_ANGLE * sin( .6 * t ) ;
-    angles[2]= MAX_ANGLE * sin( .7 * t ) ;
-    angles[3]= MAX_ANGLE * sin( .8 * t ) ;
-    angles[4]= MAX_ANGLE * sin( .9 * t ) ;
-    angles[5]= MAX_ANGLE * sin( 1.0 * t ) ;
-    angles[6]= MAX_ANGLE * sin( 1.1* t ) ;
-    angles[7]= MAX_ANGLE * sin( 1.2 * t ) ;
+    angles1[0]= MAX_ANGLE * sin( 1.1 * t ) ;
+    angles1[1]= MAX_ANGLE * sin( .6 * t ) ;
+    angles1[2]= MAX_ANGLE * sin( .7 * t ) ;
+    angles1[3]= MAX_ANGLE * sin( .8 * t ) ;
+    angles1[4]= MAX_ANGLE * sin( .9 * t ) ;
+    angles1[5]= MAX_ANGLE * sin( 1.0 * t ) ;
+    angles1[6]= MAX_ANGLE * sin( 1.1* t ) ;
+    angles1[7]= MAX_ANGLE * sin( 1.2 * t ) ;
+    
+    angles2[0]= MAX_ANGLE * sin( 1.1 * t ) ;
+    angles2[1]= MAX_ANGLE * sin( .6 * t ) ;
+    angles2[2]= MAX_ANGLE * sin( .7 * t ) ;
+    angles2[3]= MAX_ANGLE * sin( .8 * t ) ;
+    angles2[4]= MAX_ANGLE * sin( .9 * t ) ;
+    angles2[5]= MAX_ANGLE * sin( 1.0 * t ) ;
+    angles2[6]= MAX_ANGLE * sin( 1.1* t ) ;
+    angles2[7]= MAX_ANGLE * sin( 1.2 * t ) ;
+    
+    angles3[0]= MAX_ANGLE * sin( 1.1 * t ) ;
+    angles3[1]= MAX_ANGLE * sin( .6 * t ) ;
+    angles3[2]= MAX_ANGLE * sin( .7 * t ) ;
+    angles3[3]= MAX_ANGLE * sin( .8 * t ) ;
+    angles3[4]= MAX_ANGLE * sin( .9 * t ) ;
+    angles3[5]= MAX_ANGLE * sin( 1.0 * t ) ;
+    angles3[6]= MAX_ANGLE * sin( 1.1* t ) ;
+    angles3[7]= MAX_ANGLE * sin( 1.2 * t ) ;
+    
+    angles4[0]= MAX_ANGLE * sin( 1.1 * t ) ;
+    angles4[1]= MAX_ANGLE * sin( .6 * t ) ;
+    angles4[2]= MAX_ANGLE * sin( .7 * t ) ;
+    angles4[3]= MAX_ANGLE * sin( .8 * t ) ;
+    angles4[4]= MAX_ANGLE * sin( .9 * t ) ;
+    angles4[5]= MAX_ANGLE * sin( 1.0 * t ) ;
+    angles4[6]= MAX_ANGLE * sin( 1.1* t ) ;
+    angles4[7]= MAX_ANGLE * sin( 1.2 * t ) ;
 
     //double start = G_pStopwatch->getValue() * 0.001 ; 
     
@@ -450,9 +491,11 @@ void displayCallBack(void)
             slowStartTimer = G_sStopwatch->getValue() * 0.001;
     square_x += square_dx; //Increment x-position of square
     square_y += square_dy; //Increment x-position of square
-    printf("%d %d %d %d \n", square_x,square_y, square_dx, square_dy);
+    square_z += square_dz;
+    //printf("%d %d %d %d \n", square_x,square_y, square_dx, square_dy);
 	if (square_x > w_width || square_x <=0) square_dx *= -1; //Reverse direction if at edges
-    if (square_y > w_height || square_y <=0) square_dy *= -1; //Reverse direction if at edges
+    if (square_y > w_height || square_y <=0) square_dy *= -1;
+    if (square_z > w_depth || square_z <=0) square_dz *= -1;//Reverse direction if at edges
         }
     }
     
