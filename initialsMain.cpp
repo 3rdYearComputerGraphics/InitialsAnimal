@@ -25,18 +25,31 @@
 #include "JellyLegShape.h"
 #include "Stopwatch.h"
 
+
+
+
+
 //======================================================
 // GLOBAL VARIABLES 
+//======================================================
+
+//For rotation
 //======================================================
 float pitch = 0.0f;
 float yaw = 0.0f;
 float pitch0, yaw0;
+
+//for mouse call back
+//======================================================
 bool MousePressed;
 int mouseX0, mouseY0;
 bool rotating=false;
+
 //for view control
+//======================================================
 static float G_theta[3]; // View X,Y,Z
 static float G_zoom=0.6;
+
 
 // Jelly Legs sine wave
 //======================================================
@@ -44,15 +57,12 @@ double angles1[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angles2[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angles3[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angles4[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
-
-long start;
 const double ROTATION_FREQ = 0.03 ;
 const double MAX_ANGLE= 50.0 ;
 long duration;
-Stopwatch* G_pStopwatch ;
-Stopwatch* G_sStopwatch ;
-bool move = false;
 double slowStartTimer;
+Stopwatch* G_pStopwatch ;
+
 
 // Jelly Movement (bounaries) 
 //======================================================
@@ -64,13 +74,26 @@ int lastX;
 int lastY;
 int lastZ;
 
-//====================================================================
+Stopwatch* G_sStopwatch ;
+bool move = false;
+
+
 // GLOBAL VARIABLES WRITTEN TO BY motionCallBack( )
 //====================================================================
 double square_x, square_y, square_z; // position of square
 float square_dx = .001; // incremental change insquare_x
 float square_dy= .003; // incremental change insquare_x
 float square_dz= .003;
+Stopwatch* G_rStopwatch ;
+double slowRotationTimer;
+bool rotate = false;
+
+
+
+
+
+
+
 
 //======================================================
 //Prototypes
@@ -90,6 +113,9 @@ void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display)
 void jellyLeg(double array []);
 void reshapeCallBack(int w, int h);
 void animate() ;
+
+
+
 
 
 //======================================================
@@ -151,19 +177,16 @@ void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display)
 //======================================================
 
 void idleCallBack (){
-	yaw=yaw+.25;
-    //glutPostRedisplay();
+
+    if((G_rStopwatch->getValue() * 0.001)-slowRotationTimer > 1){
+        yaw0 +=15;
+        slowRotationTimer = G_rStopwatch->getValue() * 0.001;
+    }
+    glutPostRedisplay();
+
 }
 
-void rotateView(bool r){
-	rotating = r;
-	if (r) glutIdleFunc(idleCallBack); else glutIdleFunc(NULL);
-}
 
-void resetView(){
-	rotateView(false); //Stop view rotation
-	yaw=pitch=0;
-}
 
 
 //======================================================
@@ -183,8 +206,20 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
             break;
         case 'r': 
-            rotating= !rotating;
-            rotateView(rotating);
+            if ( G_rStopwatch->isStopped() )
+            {
+                yaw0 = 0;
+                rotate = true;
+                G_rStopwatch->start() ;
+                glutIdleFunc( idleCallBack ) ;
+            }
+            else
+            {
+                rotate = false;
+                G_rStopwatch->stop() ;
+                glutIdleFunc( NULL ) ;
+            }
+            
             break;
         case 'j': 
             if ( G_pStopwatch->isStopped() )
@@ -213,10 +248,6 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             break;
         case 's': 
             move = false;
-            glutIdleFunc( NULL ) ;
-            break;
-        case 'R':
-            resetView();
             glutIdleFunc( NULL ) ;
             break;
         default:
@@ -248,16 +279,19 @@ void mouseClickCallBack(int button, int state, int x, int y)
     switch (state)
     {
 		case GLUT_DOWN:
-			MousePressed = true;
+			//MousePressed = true;
 			pitch0 = G_theta[0]; 
 			yaw0 = G_theta[1];
 			mouseX0 = x; mouseY0 = y;
-            rotating = true;
+
+            rotate = true;
 			break;
 		default:
 		case GLUT_UP:
-			MousePressed = false;
-            rotating = false;
+			//MousePressed = false;
+
+            rotate = false;
+
 			break;
     }
 } 
@@ -431,8 +465,9 @@ void displayCallBack(void)
 {
 	// display callback,
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    if(rotating)executeViewControl (yaw, pitch);
+
+    if(rotate)executeViewControl (yaw, pitch);
+
     
     //duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
     //draw jellyfish body
@@ -540,6 +575,7 @@ int main(int argc, char** argv)
 
     G_pStopwatch= new Stopwatch ;
     G_sStopwatch= new Stopwatch ;
+    G_rStopwatch= new Stopwatch ;
     
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glColor3f(1.0, 0.0, 0.0);
@@ -547,7 +583,7 @@ int main(int argc, char** argv)
 	glEnable(GL_DEPTH_TEST); /* Enable hidden--surface--removal */
   
 
-    start = glutGet( GLUT_ELAPSED_TIME );
+    //start = glutGet( GLUT_ELAPSED_TIME );
 	glutMainLoop();
     
 	return 0;
