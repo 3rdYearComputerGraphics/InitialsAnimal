@@ -23,6 +23,7 @@
 #include "drawM.h"
 #include "jellyBodyShape.h"
 #include "JellyLegShape.h"
+#include "Stopwatch.h"
 
 //======================================================
 // GLOBAL VARIABLES 
@@ -43,6 +44,7 @@ long start;
 const double ROTATION_FREQ = 1 ;
 const double MAX_ANGLE= 50.0 ;
 long duration;
+Stopwatch* G_pStopwatch ;
 
 //======================================================
 //Prototypes
@@ -61,14 +63,8 @@ void resetView();
 void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display);
 void jellyLeg(double array []);
 void reshapeCallBack(int w, int h);
-void part1(double array []);
-void part2(double array []);
-void part3(double array []);
-void part4(double array []);
-void part5(double array []);
-void part6(double array []);
-void part7(double array []);
-void part8(double array []);
+void animate() ;
+
 
 //======================================================
 // DRAW AXES and GRIDS
@@ -170,9 +166,16 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             rotateView(rotating);
             break;
         case 'j': 
-            duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
-            for(int i=0;i<8;i++){
-                angles[i]= MAX_ANGLE * sin( 1 * duration ) ;}
+            if ( G_pStopwatch->isStopped() )
+            {
+                G_pStopwatch->start() ;
+                glutIdleFunc( animate ) ;
+            }
+            else
+            {
+                G_pStopwatch->stop() ;
+                glutIdleFunc( NULL ) ;
+            }
 
             break;
         case 'R':
@@ -342,13 +345,9 @@ void jellyLeg(double array [])
 {
     //draw instance of jellyLegShape()
 
-    part1(array);
+
     //glPopMatrix();
-}
 
-
-void part1(double array [])
-{
     glPushMatrix();
     glTranslatef(0,-0.3,0.0);
     glRotatef(90,0,0,1);
@@ -356,12 +355,7 @@ void part1(double array [])
     legPart1();
     //glPopMatrix();
     
-    part2(array);
-   
-}
 
-void part2(double array [])
-{
     glPushMatrix();
     glRotatef(-90,0,0,1);
     glTranslatef(0.22,-0.15,0.0);
@@ -370,12 +364,7 @@ void part2(double array [])
     legPart2();
     //glPopMatrix();
     
-    part3(array);
-    
-}
 
-void part3(double array [])
-{
     glPushMatrix();
     glRotatef(-180,1.0,0.0,0.0);
     glTranslatef(-0.32,-0.25,0.0);
@@ -386,12 +375,7 @@ void part3(double array [])
     legPart3();
     //glPopMatrix();
     
-    part4(array);
-    
-}
 
-void part4(double array [])
-{
     glPushMatrix();
     glRotatef(-180,0.0,1.0,0.0);
     glRotatef(-180,0.0,0.0,1.0);
@@ -401,12 +385,7 @@ void part4(double array [])
     legPart4();
     //glPopMatrix();
     
-    part5(array);
-    
-}
 
-void part5(double array [])
-{
     glPushMatrix();
     glRotatef(-180,0.0,1.0,0.0);
     glTranslatef(0,-0.47,0.0);
@@ -415,12 +394,7 @@ void part5(double array [])
     legPart5();
     //glPopMatrix();
     
-    part6(array);
-    
-}
-
-void part6(double array [])
-{    
+ 
     glPushMatrix();
     glRotatef(-90,0,0,1);
     glTranslatef(0,-0.15,0.0);
@@ -429,12 +403,7 @@ void part6(double array [])
     legPart6();
     //glPopMatrix();
     
-    part7(array);
-    
-}
-
-void part7(double array [])
-{    
+  
     glPushMatrix();
     glRotatef(-180,1.0,0.0,0.0);
     glTranslatef(0.1,-0.250,0.0);
@@ -443,13 +412,8 @@ void part7(double array [])
     glRotated( array[7], 0,0,1 ) ;
     legPart7();
     //glPopMatrix();
-    
-    part8(array);
-    
-}
 
-void part8(double array [])
-{    
+
     glPushMatrix();
     glRotatef(-180,0.0,1.0,0.0);
     glRotatef(-180,0.0,0.0,1.0);
@@ -462,11 +426,23 @@ void part8(double array [])
     //glScalef(1.0,1.0,1.0);
     //jellyLegShape();
     glPopMatrix();
-    for(int i=0;i<8;i++)glPopMatrix();
+    glPopMatrix();
+    glPopMatrix();
+    glPopMatrix();
+    glPopMatrix();
+    glPopMatrix();
+    glPopMatrix();
+    glPopMatrix();
+    
+    
 }
 
 
-
+void animate()  
+// One frame of animation.
+{
+    glutPostRedisplay() ;
+}
 
 
 //======================================================
@@ -478,17 +454,33 @@ void displayCallBack(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     executeViewControl (yaw, pitch);
     
-  
+    duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
     //draw jellyfish body
     jellyBody();
     
+    // Get elapsed animation time (in seconds) from stopwatch.
+    double t= G_pStopwatch->getValue() * 0.001 ;  
     
+    // Set animation/rotation of scene. 
+    //double degrees= t * ROTATION_FREQ * 360 ;
     
-    //draw jellyfish leg
-    jellyLeg(angles);
+    printf("%ld\n", duration);
+    printf("%ld\n", start);
+    angles[0]= MAX_ANGLE * sin( 1.1 * t ) ;
+    angles[1]= MAX_ANGLE * sin( .6 * t ) ;
+    angles[2]= MAX_ANGLE * sin( .7 * t ) ;
+    angles[3]= MAX_ANGLE * sin( .8 * t ) ;
+    angles[4]= MAX_ANGLE * sin( .9 * t ) ;
+    angles[5]= MAX_ANGLE * sin( 1.0 * t ) ;
+    angles[6]= MAX_ANGLE * sin( 1.1* t ) ;
+    angles[7]= MAX_ANGLE * sin( 1.2 * t ) ;
+
     
     //added grids and lines
     drawAxesAndGridLines(true, true, true);
+    
+    //draw jellyfish leg
+    jellyLeg(angles);
     
 	glFlush();
 	glutSwapBuffers();
@@ -520,6 +512,7 @@ int main(int argc, char** argv)
     //glEnable(GL_NORMALIZE);
     // Enable lighting
 
+    G_pStopwatch= new Stopwatch ;
     
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glColor3f(1.0, 0.0, 0.0);
