@@ -15,7 +15,7 @@
 #include "cube.h"
 #include "3DCurve.h"
 
-void drawR() {
+void drawR(float breatheRCurve,float breatheRDiag) {
     
     //vertical of R
     glPushMatrix();
@@ -28,7 +28,7 @@ void drawR() {
     //straight diagonal of R
     glPushMatrix();
     glTranslatef(0.7,-0.8,0.0);
-    glRotatef(20,0.0,0.0,1.0);
+    glRotatef(breatheRDiag,0.0,0.0,1.0);
     glScalef(0.5,2.0,0.5);
     cube(0,1,2,3,4,5,6,7);
     glPopMatrix();
@@ -37,7 +37,7 @@ void drawR() {
     glPushMatrix();
     glTranslatef(0.2,0.65,0.0);
     glRotatef(180,0.0,1.0,0.0);
-    glScalef(0.8,1.0,1.0);
+    glScalef(breatheRCurve,1.0,1.0);
     draw3Dcurve  (0.52,          //depth  
 				  0.5,          //inner radius
 				  0.95,          //outer radius

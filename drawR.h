@@ -7,4 +7,4 @@
 //
 //
 
-extern void drawR();
+extern void drawR(float breatheRCurve,float breatheRDiag);

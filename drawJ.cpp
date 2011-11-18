@@ -15,7 +15,7 @@
 #include "cube.h"
 #include "3DCurve.h"
 
-void drawJ() {
+void drawJ(float breatheJCurve) {
     
     /*
     //horizontal of J
@@ -39,7 +39,7 @@ void drawJ() {
     glPushMatrix();
     glTranslatef(0.0,-0.7,0.0);
     //glRotatef(90,0.0,1.0,0.0);
-    glScalef(0.5,0.5,0.5);
+    glScalef(0.5,breatheJCurve,0.5);
     draw3Dcurve  (1.0,          //depth  
 				  0.95,          //inner radius
 				  2.05,          //outer radius

@@ -7,4 +7,4 @@
 //
 //
 
-extern void drawJ();
+extern void drawJ(float breatheJCurve);
