@@ -98,7 +98,15 @@ bool rotate = false;
 int randomMovement = 0;
 
 
-
+//****************************************************
+//Jamies variables
+float breatheRCurve = 0.8;
+float breatheJCurve = 0.3;
+float breatheRDiag = 20;
+bool swimming=false;
+bool out=true;
+bool lines=true;
+//*****************************************************
 
 
 
@@ -124,27 +132,40 @@ void reshapeCallBack(int w, int h);
 void animate() ;
 void randomiseSeeds(double array[]);
 
+//*********************************************
+void swimmingFunc(int extra);
+void jellySwim(bool r);
 
-
+//just add the 4th variable to the already existing drawAxesAndGridLines prototype
+void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display,  bool x_y_z_display);
+//*********************************************
 
 
 //======================================================
 // DRAW AXES and GRIDS
 //======================================================
-void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display)
+//======================================================
+// DRAW AXES and GRIDS
+//======================================================
+void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display,  bool x_y_z_display)
 {
 	float offset;
-	glBegin(GL_LINES);
-    glColor3f(1, 0, 0);
-    glVertex3f(-20, 0, 0);					
-    glVertex3f(+20, 0, 0);					
-    glVertex3f( 0 ,-20, 0);				    	
-    glVertex3f(	0, +20, 0);
-    glVertex3f( 0, 0,-20);				    	
-    glVertex3f(	0, 0, +20);
     
-	glEnd();
-	
+    glBegin(GL_LINES);
+    
+    if(x_y_z_display)
+    {
+        glColor3f(1, 0, 0);
+        glVertex3f(-20, 0, 0);					
+        glVertex3f(+20, 0, 0);					
+        glVertex3f( 0 ,-20, 0);				    	
+        glVertex3f(	0, +20, 0);
+        glVertex3f( 0, 0,-20);				    	
+        glVertex3f(	0, 0, +20);
+	}
+    
+    glEnd();
+        
 	glLineStipple(1, 0xAAAA); //line style = fine dots
 	glEnable(GL_LINE_STIPPLE);
     
@@ -213,6 +234,9 @@ void keyboardCallBack(unsigned char key, int x, int y) {
         case 'l': case 'L':
             glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
             break;
+        case 'g': case 'G':
+            lines=!lines;
+            break;
         case 'r': 
             if ( G_rStopwatch->isStopped() )
             {
@@ -256,8 +280,8 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             }
             break;
         case 's': 
-            move = false;
-            glutIdleFunc( NULL ) ;
+            swimming= !swimming;
+            jellySwim(swimming);
             break;
         default:
             printf("Press b - back fill; f - front fill; l - line; i - increment; or d - decrement; r - rotate; R - reset view\n");
@@ -266,6 +290,58 @@ void keyboardCallBack(unsigned char key, int x, int y) {
 	glutPostRedisplay();
 }
 
+
+//====================================================
+// GIVE SWIMMING EFFECT
+//====================================================
+
+void swimmingFunc(int extra){
+    if(extra==1&&out==true)
+    {
+        if(breatheRCurve<1.05)
+        {
+            breatheRCurve=(breatheRCurve+0.05);
+            breatheJCurve=(breatheJCurve-0.03);
+            breatheRDiag=(breatheRDiag+3);
+        }
+        else
+        {
+            out=false;
+        }
+        glutPostRedisplay();
+        jellySwim(swimming);
+    }
+    else if(extra==1&&out==false)
+    {
+        if(breatheRCurve>0.8)
+        {
+            breatheRCurve=(breatheRCurve-0.05);
+            breatheJCurve=(breatheJCurve+0.03);
+            breatheRDiag=(breatheRDiag-3);
+        }
+        else
+        {
+            out=true;
+        }
+        glutPostRedisplay();
+        jellySwim(swimming);
+    }
+    else if(extra==0)
+    {
+        breatheRCurve=0.8;
+        breatheJCurve=(breatheJCurve+0.3);
+        breatheJCurve=0.5;
+        out=true;
+        glutPostRedisplay();
+    }
+}
+
+void jellySwim(bool s)
+{
+	swimming = s;
+    if (s) glutTimerFunc(150,swimmingFunc,1);
+    else glutTimerFunc(150,swimmingFunc,0);
+}
 
 
 //=====================================================
@@ -353,7 +429,8 @@ void drawInitials()
     //glTranslatef(-0.6,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    drawJ();
+	// draw J now needs parameters
+    drawJ(breatheJCurve);
     glPopMatrix();
     
     //draw intial K
@@ -369,7 +446,8 @@ void drawInitials()
     //glTranslatef(-0.2,-0.01,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    drawR();
+//draw R now needs parameters
+    drawR(breatheRCurve,breatheRDiag);
     glPopMatrix();
     
     //draw initial L
@@ -414,7 +492,7 @@ void jellyBody()
         //glTranslatef(0.5,0.0,0.0);
         glRotatef(i,0.0,1.0,0.0);
         //glScalef(1.0,1.0,1.0);
-        jellyBodyShape();
+        jellyBodyShape(breatheRCurve,breatheJCurve,breatheRDiag);
         glPopMatrix();
         
 
@@ -564,9 +642,10 @@ void displayCallBack(void)
         }
     }
     
-    //added grids and lines
-    drawAxesAndGridLines(true, true, true);
+	// drawAxesAndGridLines now has parameters
     
+    //added grids and lines
+    drawAxesAndGridLines(lines, lines, lines, lines);    
     //draw jellyfish leg
     //jellyLeg(angles);
     
