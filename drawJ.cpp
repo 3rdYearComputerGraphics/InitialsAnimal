@@ -15,7 +15,7 @@
 #include "cube.h"
 #include "3DCurve.h"
 
-void drawJ(float breatheJCurve) {
+void drawJ(float breatheJCurve,float colours1[], float colours2[]) {
     
     /*
     //horizontal of J
@@ -32,7 +32,7 @@ void drawJ(float breatheJCurve) {
     glTranslatef(0.75,0.35,0.0);
     //glRotatef(90,1.0,0.0,0.0);
     glScalef(0.5,2.2,0.5);
-    cube(0,1,2,3,4,5,6,7);
+    cube(0,1,2,3,4,5,6,7,colours1,colours2);
     glPopMatrix();
     
     //curve of J
@@ -45,6 +45,6 @@ void drawJ(float breatheJCurve) {
 				  2.05,          //outer radius
 				  180.0,          //start angle
 				  360.0,  //stop angle
-				  5.0);
+				  5.0,colours1,colours2);
     glPopMatrix();
 }   

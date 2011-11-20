@@ -22,62 +22,59 @@
 #include "3DCurve.h"
 
 
-void jellyLegShape(double array[]);
-void legPart();
-void legPart1();
-void legPart2();
-void legPart3();
-void legPart4();
-void legPart5();
-void legPart6();
-void legPart7();
-void legPart8();
+void jellyLegShape(double array[],float colours1[], float colours2[]);
+void legPart(float colours1[], float colours2[]);
+void legPart1(float colours1[], float colours2[]);
+void legPart2(float colours1[], float colours2[]);
+void legPart3(float colours1[], float colours2[]);
+void legPart4(float colours1[], float colours2[]);
+void legPart5(float colours1[], float colours2[]);
+void legPart6(float colours1[], float colours2[]);
+void legPart7(float colours1[], float colours2[]);
+void legPart8(float colours1[], float colours2[]);
 
-void jellyLegShape(double array[])
+void jellyLegShape(double array[],float colours1[], float colours2[])
 {
     
     glPushMatrix();
-    //glTranslatef(0,-0.3,0.0);
-    //glRotatef(90,0,0,1);
-    glRotated( array[1], 0,0,1 ) ;
-    legPart1();
 
-    
+    glRotated( array[1], 0,0,1 ) ;
+    legPart1(colours1,colours2);
     
     glPushMatrix();
     glTranslatef(-0.02,-0.3,0.0);
     glRotated( array[2], 0,0,1 ) ;
-    legPart2();
+    legPart2(colours1,colours2);
   
     glPushMatrix();
     glTranslatef(-0.0,-0.22,0.0);
     glRotated( array[3], 0,0,1 ) ;
-    legPart3();
+    legPart3(colours1,colours2);
 
     glPushMatrix();
     glTranslatef(0.0,-0.28,0.0);
     glRotated( array[4], 0,0,1 ) ;
-    legPart4();
+    legPart4(colours1,colours2);
 
     glPushMatrix();
     glTranslatef(0,-0.27,0.0);
     glRotated( array[5], 0,0,1 ) ;
-    legPart5();
+    legPart5(colours1,colours2);
 
     glPushMatrix();
     glTranslatef(0,-0.35,0.0);
     glRotated( array[6], 0,0,1 ) ;
-    legPart6();
+    legPart6(colours1,colours2);
 
     glPushMatrix();
     glTranslatef(0,-0.23,0.0);
     glRotated( array[7], 0,0,1 ) ;
-    legPart7();
+    legPart7(colours1,colours2);
 
     glPushMatrix();
     glTranslatef(-0.0,-0.26,0.0);
     glRotated( array[8], 0,0,1 ) ;
-    legPart8();
+    legPart8(colours1,colours2);
     
 
     glPopMatrix();
@@ -94,67 +91,67 @@ void jellyLegShape(double array[])
 
 }
 
-void legPart1() {
+void legPart1(float colours1[], float colours2[]) {
     
     glPushMatrix();
 
     glScalef(0.1,0.1,0.1);
-    drawM();
+    drawM(colours1,colours2);
     glPopMatrix();
 }
    
-void legPart2() {
+void legPart2(float colours1[], float colours2[]) {
     glPushMatrix();
 
     glScalef(-0.1,0.1,0.1);
-    drawI();
+    drawI(colours1,colours2);
     glPopMatrix();
 }
     
-void legPart3() {
+void legPart3(float colours1[], float colours2[]) {
     glPushMatrix();
     glScalef(0.1,0.1,0.1);
-    drawL();
+    drawL(colours1,colours2);
     glPopMatrix();
 }
     
-void legPart4() {
+void legPart4(float colours1[], float colours2[]) {
     glPushMatrix();
 
     glScalef(-0.1,0.1,0.1);
-    drawK();
+    drawK(colours1,colours2);
     glPopMatrix();
 }
 
-void legPart5() {
+void legPart5(float colours1[], float colours2[]) {
     
     glPushMatrix();
     glScalef(0.1,0.1,0.1);
-    drawM();
+    drawM(colours1,colours2);
     glPopMatrix();
 }
 
-void legPart6() {
+void legPart6(float colours1[], float colours2[]) {
     glPushMatrix();
 
     glScalef(-0.1,0.1,0.1);
-    drawI();
+    drawI(colours1,colours2);
     glPopMatrix();
 }
 
-void legPart7() {
+void legPart7(float colours1[], float colours2[]) {
     glPushMatrix();
 
     glScalef(0.1,0.1,0.1);
-    drawL();
+    drawL(colours1,colours2);
     glPopMatrix();
 }
 
-void legPart8() {
+void legPart8(float colours1[], float colours2[]) {
     glPushMatrix();
 
     glScalef(-0.1,0.1,0.1);
-    drawK();
+    drawK(colours1,colours2);
     glPopMatrix();
 }
 

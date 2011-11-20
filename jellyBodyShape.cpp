@@ -21,14 +21,14 @@
 #include "drawM.h"
 #include "3DCurve.h"
 
-void jellyBodyShape(float breatheRCurve,float breatheJCurve,float breatheRDiag) {
+void jellyBodyShape(float breatheRCurve,float breatheJCurve,float breatheRDiag,float colours1[], float colours2[]) {
     
     //draw left J
     glPushMatrix();
     glTranslatef(-0.1,0.25,0.0);
     glRotatef(210,0.0,0.0,1.0);
     glScalef(0.2,0.2,0.2);
-    drawJ(breatheJCurve);
+    drawJ(breatheJCurve,colours1,colours2);
     glPopMatrix();
     
     //draw left R
@@ -36,7 +36,7 @@ void jellyBodyShape(float breatheRCurve,float breatheJCurve,float breatheRDiag) 
     glTranslatef(-0.4,-0.01,0.0);
     //glRotatef(180,0.0,1.0,0.0);
     glScalef(-0.2,0.2,0.2);
-    drawR(breatheRCurve,breatheRDiag);
+    drawR(breatheRCurve,breatheRDiag,colours1,colours2);
     glPopMatrix();
     
     //draw right J
@@ -45,7 +45,7 @@ void jellyBodyShape(float breatheRCurve,float breatheJCurve,float breatheRDiag) 
     glRotatef(180,0.0,1.0,0.0);
     glRotatef(210,0.0,0.0,1.0);
     glScalef(0.2,0.2,0.2);
-    drawJ(breatheJCurve);
+    drawJ(breatheJCurve,colours1,colours2);
     glPopMatrix();
     
     //draw right R
@@ -53,6 +53,6 @@ void jellyBodyShape(float breatheRCurve,float breatheJCurve,float breatheRDiag) 
     glTranslatef(0.4,-0.01,0.0);
     glRotatef(180,0.0,1.0,0.0);
     glScalef(-0.2,0.2,0.2);
-    drawR(breatheRCurve,breatheRDiag);
+    drawR(breatheRCurve,breatheRDiag,colours1,colours2);
     glPopMatrix();
 }

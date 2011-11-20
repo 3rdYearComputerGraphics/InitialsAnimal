@@ -15,14 +15,14 @@
 #include "cube.h"
 #include "3DCurve.h"
 
-void drawR(float breatheRCurve,float breatheRDiag) {
+void drawR(float breatheRCurve,float breatheRDiag,float colours1[], float colours2[]) {
     
     //vertical of R
     glPushMatrix();
     //glTranslatef(0.0,1.2,0.0);
     //glRotatef(90,0.0,0.0,1.0);
     glScalef(0.5,3.2,0.5);
-    cube(0,1,2,3,4,5,6,7);
+    cube(0,1,2,3,4,5,6,7,colours1,colours2);
     glPopMatrix();
     
     //straight diagonal of R
@@ -30,7 +30,7 @@ void drawR(float breatheRCurve,float breatheRDiag) {
     glTranslatef(0.7,-0.8,0.0);
     glRotatef(breatheRDiag,0.0,0.0,1.0);
     glScalef(0.5,2.0,0.5);
-    cube(0,1,2,3,4,5,6,7);
+    cube(0,1,2,3,4,5,6,7,colours1,colours2);
     glPopMatrix();
     
     //curve of R
@@ -43,6 +43,6 @@ void drawR(float breatheRCurve,float breatheRDiag) {
 				  0.95,          //outer radius
 				  90.0,          //start angle
 				  270.0,  //stop angle
-				  5.0);
+				  5.0,colours1,colours2);
     glPopMatrix();
 }   

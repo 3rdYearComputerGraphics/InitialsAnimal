@@ -108,6 +108,14 @@ bool out=true;
 bool lines=true;
 //*****************************************************
 
+//****************************************
+// These change the color of the jellyfish
+//****************************************
+//Colours
+float bodyColour1[]={0.0,0.8,1.0};
+float bodyColour2[]={0.0,0.7,1.0};
+float legsColour1[]={1.0,0.8,1.0};
+float legsColour2[]={1.0,0.7,1.0};
 
 
 
@@ -131,6 +139,7 @@ void jellyLeg(double array []);
 void reshapeCallBack(int w, int h);
 void animate() ;
 void randomiseSeeds(double array[]);
+void background();
 
 //*********************************************
 void swimmingFunc(int extra);
@@ -417,6 +426,24 @@ void reshapeCallBack(int w, int h)
     glMatrixMode(GL_MODELVIEW);
 }
 
+void background()
+{
+    
+    glBegin(GL_POLYGON);
+    glColor3ub( 0, 100, 255);
+    glTexCoord2f(1,0);
+    glVertex2f(10, 10);
+    glTexCoord2f(0,0);
+    glVertex2f(-10, 10);
+    glTexCoord2f(0,1);
+    glVertex2f(-10, -10);
+    glTexCoord2f(1,1);
+    glVertex2f(10, -10);
+	glEnd();
+    
+    
+}
+
 
 //======================================================
 //DRAW INITIALS (Calls external funcs drawJ drawK drawR)
@@ -430,7 +457,7 @@ void drawInitials()
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
 	// draw J now needs parameters
-    drawJ(breatheJCurve);
+    //drawJ(breatheJCurve);
     glPopMatrix();
     
     //draw intial K
@@ -438,7 +465,7 @@ void drawInitials()
     //glTranslatef(-0.4,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    drawK();
+    //drawK();
     glPopMatrix();
     
     //draw initial R
@@ -447,7 +474,7 @@ void drawInitials()
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
 //draw R now needs parameters
-    drawR(breatheRCurve,breatheRDiag);
+    //drawR(breatheRCurve,breatheRDiag);
     glPopMatrix();
     
     //draw initial L
@@ -455,7 +482,7 @@ void drawInitials()
     //glTranslatef(0.2,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    drawL();
+    //drawL();
     glPopMatrix();
     
     //draw initial I
@@ -463,7 +490,7 @@ void drawInitials()
     //glTranslatef(0.0,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    drawI();
+    //drawI();
     glPopMatrix();
     
     //draw initial M
@@ -471,7 +498,7 @@ void drawInitials()
     //glTranslatef(0.5,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-    drawM();
+    //drawM();
     glPopMatrix();
 }
 
@@ -492,7 +519,7 @@ void jellyBody()
         //glTranslatef(0.5,0.0,0.0);
         glRotatef(i,0.0,1.0,0.0);
         //glScalef(1.0,1.0,1.0);
-        jellyBodyShape(breatheRCurve,breatheJCurve,breatheRDiag);
+        jellyBodyShape(breatheRCurve,breatheJCurve,breatheRDiag,bodyColour1,bodyColour2);        
         glPopMatrix();
         
 
@@ -531,7 +558,7 @@ void jellyBody()
 void jellyLeg(double array [])
 {
     //draw instance of jellyLegShape()
-    jellyLegShape(array);
+    jellyLegShape(array, legsColour1, legsColour2);
     
 }
 

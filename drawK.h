@@ -7,4 +7,4 @@
 //
 //
 
-extern void drawK();
+extern void drawK(float colours1[], float colours2[]);

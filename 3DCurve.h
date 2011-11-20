@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////
 
-extern void draw3Dcurve(double depth, double r1, double r2, double theta_start, double theta_stop, double theta_inc);
+extern void draw3Dcurve(double depth, double r1, double r2, double theta_start, double theta_stop, double theta_inc, float colours1[], float colours2[]);
 	// Function to draw 3D curve 
 	// depth = depth centred round z=0
 	// r1 = inner radius

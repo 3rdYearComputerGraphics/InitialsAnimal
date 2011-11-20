@@ -15,7 +15,7 @@
 #include "cube.h"
 #include "3DCurve.h"
 
-void drawL() {
+void drawL(float colours1[], float colours2[]) {
     
     //horizontal of L
     glPushMatrix();
@@ -25,7 +25,7 @@ void drawL() {
     glTranslatef(1.8,-1.46,0.0);
     glRotatef(90,0.0,0.0,1.0);
     glScalef(0.5,0.7,0.5);
-    cube(0,1,2,3,4,5,6,7);
+    cube(0,1,2,3,4,5,6,7,colours1,colours2);
     glPopMatrix();
     
     //vertical of L
@@ -33,7 +33,7 @@ void drawL() {
     glTranslatef(0.75,0.15,0.0);
     //glRotatef(90,1.0,0.0,0.0);
     glScalef(0.5,2.2,0.5);
-    cube(0,1,2,3,4,5,6,7);
+    cube(0,1,2,3,4,5,6,7,colours1,colours2);
     glPopMatrix();
     
     //curve of L
@@ -46,7 +46,7 @@ void drawL() {
 				  2.05,          //outer radius
 				  180,          //start angle
 				  270.0,  //stop angle
-				  5.0);
+				  5.0,colours1,colours2);
     glPopMatrix();
     glPopMatrix();
 }   

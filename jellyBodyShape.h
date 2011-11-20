@@ -7,7 +7,7 @@
 //
 //
 
-extern void jellyBodyShape(float breatheRCurve,float breatheJCurve,float breatheRDiag);
+extern void jellyBodyShape(float breatheRCurve,float breatheJCurve,float breatheRDiag,float colours1[], float colours2[]);
 extern void legPart1();
 extern void legPart2();
 extern void legPart3();

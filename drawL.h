@@ -8,4 +8,4 @@
 //
 
 
-extern void drawL();
+extern void drawL(float colours1[], float colours2[]);

@@ -7,4 +7,4 @@
 //
 //
 
-extern void drawM();
+extern void drawM(float colours1[], float colours2[]);

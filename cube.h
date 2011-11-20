@@ -6,7 +6,7 @@
 //  Copyright 2011 Heriot-Watt University. All rights reserved.
 //
 
-extern void cube(int a, int b, int c, int d, int e, int f, int g, int h);
+extern void cube(int a, int b, int c, int d, int e, int f, int g, int h, float colours1[], float colours2[]);
 //  values for perfect cube are as follows:
 //  a - 0
 //  b - 1

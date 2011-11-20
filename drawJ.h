@@ -7,4 +7,4 @@
 //
 //
 
-extern void drawJ(float breatheJCurve);
+extern void drawJ(float breatheJCurve,float colours1[], float colours2[]);
