@@ -214,28 +214,12 @@ void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display,
     
 }
 
-//======================================================
-// IDLE CALLBACK
-//======================================================
-/*
-void idleCallBack (){
-
-    if((G_rStopwatch->getValue() * 0.001)-slowRotationTimer > 1){
-        yaw0 +=15;
-        slowRotationTimer = G_rStopwatch->getValue() * 0.001;
-    }
-    glutPostRedisplay();
-}
-
-
-*/
-
-
-
 
 //======================================================
-// KEYBOARD CALLBACK ROUTINE 
+// KEYBOARD CALLBACK ROUTINE - MJC code & edited to allow for out controls 
 //======================================================
+
+
 void keyboardCallBack(unsigned char key, int x, int y) {
 	printf("Keyboard call back: key=%c, x=%d, y=%d\n", key, x, y);
 	switch(key)
@@ -285,8 +269,8 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             swimming= !swimming;
             jellySwim(swimming);
             break;
-        default:
-            printf("Press b - back fill; f - front fill; l - line; i - increment; or d - decrement; r - rotate; R - reset view\n");
+        //default:
+            //printf("Press b - back fill; f - front fill; l - line; i - increment; or d - decrement; r - rotate; R - reset view\n");
 	}
     
 	glutPostRedisplay();
@@ -296,7 +280,7 @@ void keyboardCallBack(unsigned char key, int x, int y) {
 
 
 //======================================================
-// ROTATION
+// ROTATION - MJC code
 //======================================================
 void rotatingFunc(int extra){
     if(extra==1)
@@ -328,13 +312,8 @@ void rotateView(bool r)
 }
 
 
-
-
-
-
-
 //====================================================
-// GIVE SWIMMING EFFECT
+// to create the swimming effect
 //====================================================
 
 void swimmingFunc(int extra){
@@ -378,6 +357,10 @@ void swimmingFunc(int extra){
     }
 }
 
+//=====================================================
+//Timer Code to control the body movement
+//=====================================================
+
 void jellySwim(bool s)
 {
 	swimming = s;
@@ -387,7 +370,7 @@ void jellySwim(bool s)
 
 
 //=====================================================
-//View Contorls
+//View Contorls MJC CODE
 //=====================================================
 
 void executeViewControl (float y, float p){
@@ -398,7 +381,7 @@ void executeViewControl (float y, float p){
 
 
 //======================================================
-// MOUSE CALLBACK ROUTINES
+// MOUSE CALLBACK ROUTINES MJC CODE
 //======================================================
 void mouseClickCallBack(int button, int state, int x, int y) 
 {
@@ -406,7 +389,6 @@ void mouseClickCallBack(int button, int state, int x, int y)
     switch (state)
     {
 		case GLUT_DOWN:
-			//MousePressed = true;
 			pitch0 = G_theta[0]; 
 			yaw0 = G_theta[1];
 			mouseX0 = x; mouseY0 = y;
@@ -414,8 +396,6 @@ void mouseClickCallBack(int button, int state, int x, int y)
 			break;
 		default:
 		case GLUT_UP:
-			//MousePressed = false;
-
             rotate = false;
 			break;
     }
@@ -431,7 +411,7 @@ void mouseMotionCallBack(int x, int y)
 
 
 //======================================================
-// VIEW CONTROL ROUTINE 
+// VIEW CONTROL ROUTINE  - MJC CODE
 //======================================================
 void viewControl()
 {
@@ -506,7 +486,7 @@ void drawInitials()
     //glTranslatef(-0.2,-0.01,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
-//draw R now needs parameters
+    //draw R now needs parameters
     //drawR(breatheRCurve,breatheRDiag);
     glPopMatrix();
     
@@ -528,7 +508,7 @@ void drawInitials()
     
     //draw initial M
     glPushMatrix();
-    //glTranslatef(0.5,0.0,0.0);
+    glTranslatef(0.5,0.0,0.0);
     //glScalef(0.1,0.1,0.1);
     //glRotatef(90,0.0,1.0,0.0);
     //drawM();
@@ -538,48 +518,30 @@ void drawInitials()
 void drawJelly()
 {
     glPushMatrix();
-    //glTranslatef(square_x, square_y, 0.0);
-    //glRotatef(rotation, 0.0, 1.0, 0.0);
-    //glScalef(100, 100, 100);
-        //printf("%d\n", square_x);
-        //printf("%d\n", square_y);
     
-    
+    //loop to create the body
     for (int i=0; i<=180; (i=i+10)) {
 
 
         //draw instance of jellyBodyShape()
         glPushMatrix();
-        //glTranslatef(0.5,0.0,0.0);
         glRotatef(i,0.0,1.0,0.0);
-        //glScalef(1.0,1.0,1.0);
         jellyBodyShape(breatheRCurve,breatheJCurve,breatheRDiag,bodyColour1,bodyColour2);        
         glPopMatrix();
         
 
     }
-
-        
+        //used the arrays with angles
         glPushMatrix();
-
         glRotatef(90,0.0,1.0,0.0);
-
         jellyLeg(angles1);
-        
         glRotatef(90,0.0,1.0,0.0);
-        
         jellyLeg(angles2);
-        
         glRotatef(90,0.0,1.0,0.0);
-        
         jellyLeg(angles3);
-        
         glRotatef(90,0.0,1.0,0.0);
-        
         jellyLeg(angles4);
-        
         glPopMatrix();
-        
     
     glPopMatrix();
   
@@ -614,8 +576,6 @@ void displayCallBack(void)
 
     if(rotate)executeViewControl (yaw, pitch);
 
-    
-    //duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
     //draw jellyfish body
     glPushMatrix();
     glTranslatef(square_x, square_y, 0.0);
@@ -680,11 +640,15 @@ void displayCallBack(void)
                 square_dy = temp2/1000;
                 square_dz = temp3/1000;
                 randomMovement = 0;
+                
+                //debugging
                 //printf("%f%f%f\n", temp1/1000, temp2/1000, temp3/1000);
             }
             square_x += square_dx; //Increment x-position of square
             square_y += square_dy; //Increment x-position of square
             square_z += square_dz;
+            
+            //debugging
             //printf("%d %d %d %d \n", square_x,square_y, square_dx, square_dy);
             if (square_x > w_width || square_x <=0) square_dx *= -1; //Reverse direction if at edges
             if (square_y > w_height || square_y <=0) square_dy *= -1;
@@ -721,6 +685,7 @@ int main(int argc, char** argv)
     // Allow cmd line arguments to be passed to the glut
 	glutInit(&argc, argv);
     
+    //seed the random function
     srand ((unsigned)time (0));
     
     randomiseSeeds(angleRandomSeeds1);
