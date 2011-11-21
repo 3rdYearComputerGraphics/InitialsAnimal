@@ -224,13 +224,9 @@ void keyboardCallBack(unsigned char key, int x, int y) {
 	printf("Keyboard call back: key=%c, x=%d, y=%d\n", key, x, y);
 	switch(key)
 	{
-        //Fills in the back colouring
-        case 'b': case 'B':
-            glPolygonMode(GL_BACK,GL_FILL);
-            break;
         //fills in the front colouring
         case 'f': case 'F':
-            glPolygonMode(GL_FRONT,GL_FILL);
+            glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
             break;
         //switches to line mode
         case 'l': case 'L':
@@ -241,12 +237,12 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             lines=!lines;
             break;
         //toggles rotation
-        case 'r':
+        case 'r': case 'R':
             rotating= !rotating;
             rotateView(rotating);
             break;
         //toggle jelly legs independently
-        case 'j': 
+        case 'j': case 'J': 
             if ( sineTimer->isStopped() )
             {
                 sineTimer->start() ;
@@ -259,7 +255,7 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             }
             break;
         //toggle movement independently
-        case 'm': 
+        case 'm': case 'M': 
             if ( movementTimer->isStopped() )
             {
                 move = true;
@@ -273,12 +269,12 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             }
             break;
         //toggle boddy swimming effect independently
-        case 's': 
+        case 's': case 'S': 
             swimming= !swimming;
             jellySwim(swimming);
             break;
         //toggle body, legs, and movement at once
-        case 'a': 
+        case 'a': case 'A': 
             if ( sineTimer->isStopped() )
             {
                 sineTimer->start() ;
@@ -735,7 +731,7 @@ int main(int argc, char** argv)
     glutCreateWindow("Lewis and Jamie's Jellyfish");
     
     //Prints instructions to screen
-    printf("\nPress the following to interact:\n 'b' - fill back colour; 'f' - fill front colour; 'l' - line mode; 'r' - rotate;\n 'm' - movement; 'j' - move jelly legs; 's' - move body; 'a' - move all\n");
+    printf("\nPress the following to interact:\n 'f' - fill colour; 'l' - line mode; 'r' - rotate;\n 'm' - movement; 'j' - move jelly legs; 's' - move body; 'a' - move all\n");
 
     
 	// Add Display & Mouse CallBacks

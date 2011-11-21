@@ -2,7 +2,7 @@
 //  Timer.cpp
 //  init
 //
-//  Created by Lewis McLean on 21/11/2011.
+//  Created by Jamie Johnstone & Lewis McLean on 17/11/2011.
 //  Copyright (c) 2011 Heriot Watt. All rights reserved.
 //
 //
