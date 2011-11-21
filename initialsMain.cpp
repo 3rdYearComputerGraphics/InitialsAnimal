@@ -51,9 +51,9 @@ static float G_zoom=0.6;
 // GLOBAL VARIABLES WRITTEN TO BY motionCallBack( ) MJC code
 //====================================================================
 double square_x, square_y, square_z; // position of square
-float square_dx = .0005; // incremental change insquare_x
-float square_dy= .0006; // incremental change insquare_x
-float square_dz= .0006;
+float square_dx = .0007; // incremental change insquare_x
+float square_dy= .0008; // incremental change insquare_x
+float square_dz= .0008;
 Timer* G_rStopwatch ;
 double slowRotationTimer;
 bool rotate = false;
@@ -287,12 +287,12 @@ void rotatingFunc(int extra){
     {
         rotation=rotation+1.0;
         glutPostRedisplay();
-        rotateView(true);
+        rotateView(rotating);
         printf("%d   %f\n",rotating,rotation);
     }
     else if(extra==0)
     {
-        rotation=0.0;
+        //rotation=0.0;
         glutPostRedisplay();
         printf("cancelled\n");
     }
