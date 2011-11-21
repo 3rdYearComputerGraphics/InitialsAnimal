@@ -59,9 +59,9 @@ double angleRandomSeeds3 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angleRandomSeeds4 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 const double MAX_ANGLE= 10.0 ;
 
-//...
-double slowStartTimer;
+//Timer for Sine waveing
 Timer* sineTimer ;
+//flag for random functioning
 bool finishedRandomising = false;
 double randomDouble = 0;
 
@@ -72,13 +72,14 @@ double randomDouble = 0;
 int w_height=3;
 int w_width=3;
 int w_depth =3;
-
+//to keep track of where nelly is
 int lastX;
 int lastY;
 int lastZ;
 
 Timer* G_sStopwatch ;
 bool move = false;
+double slowStartTimer;
 
 
 
@@ -663,7 +664,8 @@ void displayCallBack(void)
     //double start = G_pStopwatch->getValue() * 0.001 ; 
     
     //printf("%f%f%f\n", square_dx, square_dz, square_dy);
-    //printf("%f\n", G_sStopwatch->getValue() * 0.001-slowStartTimer);
+    printf("%f\n", G_sStopwatch->getValue() * 0.001-slowStartTimer);
+
     if(move){
         if((G_sStopwatch->getValue() * 0.001)-slowStartTimer > .01){
             slowStartTimer = G_sStopwatch->getValue() * 0.001;
