@@ -24,11 +24,7 @@
 #include "drawM.h"
 #include "jellyBodyShape.h"
 #include "JellyLegShape.h"
-#include "Stopwatch.h"
-
-
-
-
+#include "Timer.cpp"
 
 //======================================================
 // GLOBAL VARIABLES 
@@ -61,11 +57,11 @@ double angleRandomSeeds1 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angleRandomSeeds2 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angleRandomSeeds3 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angleRandomSeeds4 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
-const double ROTATION_FREQ = 0.03 ;
 const double MAX_ANGLE= 10.0 ;
-long duration;
+
+//...
 double slowStartTimer;
-Stopwatch* G_pStopwatch ;
+Timer* sineTimer ;
 bool finishedRandomising = false;
 double randomDouble = 0;
 
@@ -81,7 +77,7 @@ int lastX;
 int lastY;
 int lastZ;
 
-Stopwatch* G_sStopwatch ;
+Timer* G_sStopwatch ;
 bool move = false;
 
 
@@ -92,7 +88,7 @@ double square_x, square_y, square_z; // position of square
 float square_dx = .0005; // incremental change insquare_x
 float square_dy= .0006; // incremental change insquare_x
 float square_dz= .0006;
-Stopwatch* G_rStopwatch ;
+Timer* G_rStopwatch ;
 double slowRotationTimer;
 bool rotate = false;
 int randomMovement = 0;
@@ -283,14 +279,14 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             rotateView(rotating);
             break;
         case 'j': 
-            if ( G_pStopwatch->isStopped() )
+            if ( sineTimer->isStopped() )
             {
-                G_pStopwatch->start() ;
+                sineTimer->start() ;
                 glutIdleFunc( animate ) ;
             }
             else
             {
-                G_pStopwatch->stop() ;
+                sineTimer->stop() ;
                 glutIdleFunc( NULL ) ;
             }
             break;
@@ -610,14 +606,9 @@ void displayCallBack(void)
     glPopMatrix();
     
     // Get elapsed animation time (in seconds) from stopwatch.
-    double t= G_pStopwatch->getValue() * 0.001 ;  
+    double t= sineTimer->getValue() * 0.001 ;  
 
-    
-    // Set animation/rotation of scene. 
-    //double degrees= t * ROTATION_FREQ * 360 ;
-        
-    
-    
+    //set up the arrays for passing to the legs
     angles1[0]= MAX_ANGLE * sin( angleRandomSeeds1[0] * t ) ;
     angles1[1]= MAX_ANGLE * sin( angleRandomSeeds1[1] * t ) ;
     angles1[2]= MAX_ANGLE * sin( angleRandomSeeds1[2] * t ) ;
@@ -626,9 +617,7 @@ void displayCallBack(void)
     angles1[5]= MAX_ANGLE * sin( angleRandomSeeds1[5] * t ) ;
     angles1[6]= MAX_ANGLE * sin( angleRandomSeeds1[6] * t ) ;
     angles1[7]= MAX_ANGLE * sin( angleRandomSeeds1[7] * t ) ;
-    
-   
-    
+
     angles2[0]= MAX_ANGLE * sin( angleRandomSeeds2[0] * t ) ;
     angles2[1]= MAX_ANGLE * sin( angleRandomSeeds2[1] * t ) ;
     angles2[2]= MAX_ANGLE * sin( angleRandomSeeds2[2] * t ) ;
@@ -638,8 +627,6 @@ void displayCallBack(void)
     angles2[6]= MAX_ANGLE * sin( angleRandomSeeds2[6] * t ) ;
     angles2[7]= MAX_ANGLE * sin( angleRandomSeeds2[7] * t ) ;
     
-    
-    
     angles3[0]= MAX_ANGLE * sin( angleRandomSeeds3[0] * t ) ;
     angles3[1]= MAX_ANGLE * sin( angleRandomSeeds3[1] * t ) ;
     angles3[2]= MAX_ANGLE * sin( angleRandomSeeds3[2] * t ) ;
@@ -648,9 +635,7 @@ void displayCallBack(void)
     angles3[5]= MAX_ANGLE * sin( angleRandomSeeds3[5] * t ) ;
     angles3[6]= MAX_ANGLE * sin( angleRandomSeeds3[6] * t ) ;
     angles3[7]= MAX_ANGLE * sin( angleRandomSeeds3[7] * t ) ;
-    
-    
-    
+
     angles4[0]= MAX_ANGLE * sin( angleRandomSeeds4[0] * t ) ;
     angles4[1]= MAX_ANGLE * sin( angleRandomSeeds4[1] * t ) ;
     angles4[2]= MAX_ANGLE * sin( angleRandomSeeds4[2] * t ) ;
@@ -751,9 +736,9 @@ int main(int argc, char** argv)
     //glEnable(GL_NORMALIZE);
     // Enable lighting
 
-    G_pStopwatch= new Stopwatch ;
-    G_sStopwatch= new Stopwatch ;
-    G_rStopwatch= new Stopwatch ;
+    sineTimer= new Timer ;
+    G_sStopwatch= new Timer ;
+    G_rStopwatch= new Timer ;
     
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glColor3f(1.0, 0.0, 0.0);
