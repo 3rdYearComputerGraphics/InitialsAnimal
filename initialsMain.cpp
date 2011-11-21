@@ -40,7 +40,7 @@ float pitch0, yaw0;
 //======================================================
 bool MousePressed;
 int mouseX0, mouseY0;
-bool rotating=false;
+
 
 //for view control
 //======================================================
@@ -100,9 +100,10 @@ float breatheRCurve = 0.8;
 float breatheJCurve = 0.3;
 float breatheRDiag = 20;
 bool swimming=false;
+bool rotating=false;
 bool out=true;
 bool lines=true;
-float rotation=0.0;
+float rotation=0.0f;
 //*****************************************************
 
 //****************************************
@@ -226,34 +227,6 @@ void idleCallBack (){
 
 
 
-//======================================================
-// ROTATION
-//======================================================
-void rotatingFunc(int extra){
-    if(extra==1)
-    {
-        rotation=rotation+1.0;
-        glutPostRedisplay();
-        rotateView(true);
-    }
-    else if(extra==0)
-    {
-        rotation=0.0;
-        glutPostRedisplay();
-    }
-}
-
-void rotateView(bool r)
-{
-	//rotating = r;
-    if (r) glutTimerFunc(10,rotatingFunc,1);
-    else glutTimerFunc(10,rotatingFunc,0);
-}
-
-
-
-
-
 
 //======================================================
 // KEYBOARD CALLBACK ROUTINE 
@@ -275,7 +248,7 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             lines=!lines;
             break;
         case 'r':
-            rotating = !rotating;
+            rotating= !rotating;
             rotateView(rotating);
             break;
         case 'j': 
@@ -313,6 +286,45 @@ void keyboardCallBack(unsigned char key, int x, int y) {
     
 	glutPostRedisplay();
 }
+
+
+
+
+//======================================================
+// ROTATION
+//======================================================
+void rotatingFunc(int extra){
+    if(extra==1)
+    {
+        rotation=rotation+1.0;
+        glutPostRedisplay();
+        rotateView(true);
+    }
+    else if(extra==0)
+    {
+        rotation=0.0f;
+        glutPostRedisplay();
+        
+    }
+}
+
+void rotateView(bool r)
+{
+	rotating = r;
+    if(r)
+    {
+        glutTimerFunc(50,rotatingFunc,1);
+    }
+    else
+    {
+        glutTimerFunc(50,rotatingFunc,0);
+    }
+}
+
+
+
+
+
 
 
 //====================================================
@@ -520,7 +532,7 @@ void drawInitials()
 void drawJelly()
 {
     glPushMatrix();
-    //glTranslatef(square_x, square_y, 0.0);
+    glTranslatef(square_x, square_y, 0.0);
     glRotatef(rotation, 0.0, 1.0, 0.0);
     //glScalef(100, 100, 100);
         //printf("%d\n", square_x);
@@ -600,7 +612,7 @@ void displayCallBack(void)
     //duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
     //draw jellyfish body
     glPushMatrix();
-    glTranslatef(square_x, square_y, 0.0);
+    //glTranslatef(square_x, square_y, 0.0);
     //glRotatef(rotation, 0.0, 1.0, 0.0);
     drawJelly();
     glPopMatrix();
