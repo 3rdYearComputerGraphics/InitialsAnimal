@@ -304,12 +304,13 @@ void rotatingFunc(int extra){
         rotation=rotation+1.0;
         glutPostRedisplay();
         rotateView(true);
+        printf("%d   %f\n",rotating,rotation);
     }
     else if(extra==0)
     {
-        rotation=0.0f;
+        rotation=0.0;
         glutPostRedisplay();
-        
+        printf("cancelled\n");
     }
 }
 
@@ -537,8 +538,8 @@ void drawInitials()
 void drawJelly()
 {
     glPushMatrix();
-    glTranslatef(square_x, square_y, 0.0);
-    glRotatef(rotation, 0.0, 1.0, 0.0);
+    //glTranslatef(square_x, square_y, 0.0);
+    //glRotatef(rotation, 0.0, 1.0, 0.0);
     //glScalef(100, 100, 100);
         //printf("%d\n", square_x);
         //printf("%d\n", square_y);
@@ -617,8 +618,8 @@ void displayCallBack(void)
     //duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
     //draw jellyfish body
     glPushMatrix();
-    //glTranslatef(square_x, square_y, 0.0);
-    //glRotatef(rotation, 0.0, 1.0, 0.0);
+    glTranslatef(square_x, square_y, 0.0);
+    glRotatef(rotation, 0.0, 1.0, 0.0);
     drawJelly();
     glPopMatrix();
     
@@ -664,6 +665,7 @@ void displayCallBack(void)
 
     //moves the jellyfish around the screen
     printf("%f\n",movementTimer->getValue() * 0.001-slowStartTimer);
+
     if(move){
         if((movementTimer->getValue() * 0.001)-slowStartTimer > .01){
             slowStartTimer = movementTimer->getValue() * 0.001;
@@ -678,7 +680,7 @@ void displayCallBack(void)
                 square_dy = temp2/1000;
                 square_dz = temp3/1000;
                 randomMovement = 0;
-                printf("%f%f%f\n", temp1/1000, temp2/1000, temp3/1000);
+                //printf("%f%f%f\n", temp1/1000, temp2/1000, temp3/1000);
             }
             square_x += square_dx; //Increment x-position of square
             square_y += square_dy; //Increment x-position of square
@@ -691,12 +693,8 @@ void displayCallBack(void)
         }
     }
     
-	// drawAxesAndGridLines now has parameters
-    
     //added grids and lines
     drawAxesAndGridLines(lines, lines, lines, lines);    
-    //draw jellyfish leg
-    //jellyLeg(angles);
     
     //Draw initials 
     //drawInitials();
@@ -710,9 +708,8 @@ void randomiseSeeds(double array[])
 {
     for(int i=0;i<8;i++){
         randomDouble = (rand()%20);
-        //if(randomDouble > 1.5)randomDouble = 0;else{randomDouble+=.1;}
         array[i]=randomDouble/10;
-        printf("%f\n", randomDouble/10);
+
     }
 }
 
@@ -744,22 +741,16 @@ int main(int argc, char** argv)
     glutMotionFunc(mouseMotionCallBack);
 	glutKeyboardFunc(keyboardCallBack);
     
-    //need to add scaling ....????
-    //Nope, already done in the reshapeCallback on line 508
-    //glEnable(GL_NORMALIZE);
-    // Enable lighting
-
+    //istantiate the timers
     sineTimer= new Timer ;
     movementTimer= new Timer ;
-    G_rStopwatch= new Timer ;
-    
+        
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glColor3f(1.0, 0.0, 0.0);
 	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 	glEnable(GL_DEPTH_TEST); /* Enable hidden--surface--removal */
   
 
-    //start = glutGet( GLUT_ELAPSED_TIME );
 	glutMainLoop();
     
 	return 0;
