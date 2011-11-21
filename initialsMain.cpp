@@ -299,12 +299,13 @@ void rotatingFunc(int extra){
         rotation=rotation+1.0;
         glutPostRedisplay();
         rotateView(true);
+        printf("%d   %f\n",rotating,rotation);
     }
     else if(extra==0)
     {
-        rotation=0.0f;
+        rotation=0.0;
         glutPostRedisplay();
-        
+        printf("cancelled\n");
     }
 }
 
@@ -532,8 +533,8 @@ void drawInitials()
 void drawJelly()
 {
     glPushMatrix();
-    glTranslatef(square_x, square_y, 0.0);
-    glRotatef(rotation, 0.0, 1.0, 0.0);
+    //glTranslatef(square_x, square_y, 0.0);
+    //glRotatef(rotation, 0.0, 1.0, 0.0);
     //glScalef(100, 100, 100);
         //printf("%d\n", square_x);
         //printf("%d\n", square_y);
@@ -612,8 +613,8 @@ void displayCallBack(void)
     //duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
     //draw jellyfish body
     glPushMatrix();
-    //glTranslatef(square_x, square_y, 0.0);
-    //glRotatef(rotation, 0.0, 1.0, 0.0);
+    glTranslatef(square_x, square_y, 0.0);
+    glRotatef(rotation, 0.0, 1.0, 0.0);
     drawJelly();
     glPopMatrix();
     
@@ -662,7 +663,7 @@ void displayCallBack(void)
     //double start = G_pStopwatch->getValue() * 0.001 ; 
     
     //printf("%f%f%f\n", square_dx, square_dz, square_dy);
-    printf("%f\n", G_sStopwatch->getValue() * 0.001-slowStartTimer);
+    //printf("%f\n", G_sStopwatch->getValue() * 0.001-slowStartTimer);
     if(move){
         if((G_sStopwatch->getValue() * 0.001)-slowStartTimer > .01){
             slowStartTimer = G_sStopwatch->getValue() * 0.001;
@@ -677,7 +678,7 @@ void displayCallBack(void)
                 square_dy = temp2/1000;
                 square_dz = temp3/1000;
                 randomMovement = 0;
-                printf("%f%f%f\n", temp1/1000, temp2/1000, temp3/1000);
+                //printf("%f%f%f\n", temp1/1000, temp2/1000, temp3/1000);
             }
             square_x += square_dx; //Increment x-position of square
             square_y += square_dy; //Increment x-position of square
@@ -711,7 +712,7 @@ void randomiseSeeds(double array[])
         randomDouble = (rand()%20);
         //if(randomDouble > 1.5)randomDouble = 0;else{randomDouble+=.1;}
         array[i]=randomDouble/10;
-        printf("%f\n", randomDouble/10);
+        //printf("%f\n", randomDouble/10);
     }
 }
 
