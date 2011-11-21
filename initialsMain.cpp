@@ -269,15 +269,15 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             }
             break;
         case 'm': 
-            if ( G_sStopwatch->isStopped() )
+            if ( movementTimer->isStopped() )
             {
                 move = true;
-                G_sStopwatch->start() ;
+                movementTimer->start() ;
                 glutIdleFunc( animate ) ;
             }
             else
             {
-                G_sStopwatch->stop() ;
+                movementTimer->stop() ;
                 glutIdleFunc( NULL ) ;
             }
             break;
@@ -663,10 +663,10 @@ void displayCallBack(void)
     angles4[7]= MAX_ANGLE * sin( angleRandomSeeds4[7] * t ) ;
 
     //moves the jellyfish around the screen
-    printf("%f\n", G_sStopwatch->getValue() * 0.001-slowStartTimer);
+    printf("%f\n",movementTimer->getValue() * 0.001-slowStartTimer);
     if(move){
-        if((G_sStopwatch->getValue() * 0.001)-slowStartTimer > .01){
-            slowStartTimer = G_sStopwatch->getValue() * 0.001;
+        if((movementTimer->getValue() * 0.001)-slowStartTimer > .01){
+            slowStartTimer = movementTimer->getValue() * 0.001;
             randomMovement++;
             if(randomMovement >= 1500){
                 double temp1 = (rand()%10);
@@ -750,7 +750,7 @@ int main(int argc, char** argv)
     // Enable lighting
 
     sineTimer= new Timer ;
-    G_sStopwatch= new Timer ;
+    movementTimer= new Timer ;
     G_rStopwatch= new Timer ;
     
 	glClearColor(1.0, 1.0, 1.0, 1.0);
