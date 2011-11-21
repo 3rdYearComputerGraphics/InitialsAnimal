@@ -224,22 +224,28 @@ void keyboardCallBack(unsigned char key, int x, int y) {
 	printf("Keyboard call back: key=%c, x=%d, y=%d\n", key, x, y);
 	switch(key)
 	{
+        //Fills in the back colouring
         case 'b': case 'B':
             glPolygonMode(GL_BACK,GL_FILL);
             break;
+        //fills in the front colouring
         case 'f': case 'F':
             glPolygonMode(GL_FRONT,GL_FILL);
             break;
+        //switches to line mode
         case 'l': case 'L':
             glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
             break;
+        //toggles the grid
         case 'g': case 'G':
             lines=!lines;
             break;
+        //toggles rotation
         case 'r':
             rotating= !rotating;
             rotateView(rotating);
             break;
+        //toggle jelly legs independently
         case 'j': 
             if ( sineTimer->isStopped() )
             {
@@ -252,6 +258,7 @@ void keyboardCallBack(unsigned char key, int x, int y) {
                 glutIdleFunc( NULL ) ;
             }
             break;
+        //toggle movement independently
         case 'm': 
             if ( movementTimer->isStopped() )
             {
@@ -265,14 +272,43 @@ void keyboardCallBack(unsigned char key, int x, int y) {
                 glutIdleFunc( NULL ) ;
             }
             break;
+        //toggle boddy swimming effect independently
         case 's': 
             swimming= !swimming;
             jellySwim(swimming);
             break;
+        //toggle body, legs, and movement at once
+        case 'a': 
+            if ( sineTimer->isStopped() )
+            {
+                sineTimer->start() ;
+                glutIdleFunc( animate ) ;
+            }
+            else
+            {
+                sineTimer->stop() ;
+                glutIdleFunc( NULL ) ;
+            }
+            
+            if ( movementTimer->isStopped() )
+            {
+                move = true;
+                movementTimer->start() ;
+                glutIdleFunc( animate ) ;
+            }
+            else
+            {
+                movementTimer->stop() ;
+                glutIdleFunc( NULL ) ;
+            }
+            
+            swimming= !swimming;
+            jellySwim(swimming);
+            break;
+
         //default:
-            //printf("Press b - back fill; f - front fill; l - line; i - increment; or d - decrement; r - rotate; R - reset view\n");
+            
 	}
-    
 	glutPostRedisplay();
 }
 
@@ -288,13 +324,11 @@ void rotatingFunc(int extra){
         rotation=rotation+1.0;
         glutPostRedisplay();
         rotateView(rotating);
-        printf("%d   %f\n",rotating,rotation);
     }
     else if(extra==0)
     {
         //rotation=0.0;
         glutPostRedisplay();
-        printf("cancelled\n");
     }
 }
 
@@ -464,13 +498,14 @@ void background()
 //======================================================
 void drawInitials()
 {
+    /*
     //draw initial J
     glPushMatrix();
-    //glTranslatef(-0.6,0.0,0.0);
-    //glScalef(0.1,0.1,0.1);
-    //glRotatef(90,0.0,1.0,0.0);
-	// draw J now needs parameters
-    //drawJ(breatheJCurve);
+    glTranslatef(-0.6,0.0,0.0);
+    glScalef(0.1,0.1,0.1);
+    glRotatef(90,0.0,1.0,0.0);
+	//draw J now needs parameters
+    drawJ(breatheJCurve);
     glPopMatrix();
     
     //draw intial K
@@ -513,6 +548,7 @@ void drawInitials()
     //glRotatef(90,0.0,1.0,0.0);
     //drawM();
     glPopMatrix();
+     */
 }
 
 void drawJelly()
@@ -624,7 +660,7 @@ void displayCallBack(void)
     angles4[7]= MAX_ANGLE * sin( angleRandomSeeds4[7] * t ) ;
 
     //moves the jellyfish around the screen
-    printf("%f\n",movementTimer->getValue() * 0.001-slowStartTimer);
+    //printf("%f\n",movementTimer->getValue() * 0.001-slowStartTimer);
 
     if(move){
         if((movementTimer->getValue() * 0.001)-slowStartTimer > .01){
@@ -696,7 +732,11 @@ int main(int argc, char** argv)
 	// Create and name window
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); // Need both double buffering and z buffer
     glutInitWindowSize(800, 800);
-    glutCreateWindow("My Initials");
+    glutCreateWindow("Lewis and Jamie's Jellyfish");
+    
+    //Prints instructions to screen
+    printf("\nPress the following to interact:\n 'b' - fill back colour; 'f' - fill front colour; 'l' - line mode; 'r' - rotate;\n 'm' - movement; 'j' - move jelly legs; 's' - move body; 'a' - move all\n");
+
     
 	// Add Display & Mouse CallBacks
     glutReshapeFunc(reshapeCallBack);
