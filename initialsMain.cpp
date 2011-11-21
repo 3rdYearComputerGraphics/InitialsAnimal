@@ -645,11 +645,7 @@ void displayCallBack(void)
     angles4[6]= MAX_ANGLE * sin( angleRandomSeeds4[6] * t ) ;
     angles4[7]= MAX_ANGLE * sin( angleRandomSeeds4[7] * t ) ;
 
-    
-    
-    //double start = G_pStopwatch->getValue() * 0.001 ; 
-    
-    //printf("%f%f%f\n", square_dx, square_dz, square_dy);
+    //moves the jellyfish around the screen
     printf("%f\n", G_sStopwatch->getValue() * 0.001-slowStartTimer);
     if(move){
         if((G_sStopwatch->getValue() * 0.001)-slowStartTimer > .01){
