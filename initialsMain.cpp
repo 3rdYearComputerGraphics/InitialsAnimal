@@ -106,6 +106,7 @@ float breatheRDiag = 20;
 bool swimming=false;
 bool out=true;
 bool lines=true;
+float rotation=0.0;
 //*****************************************************
 
 //****************************************
@@ -129,10 +130,11 @@ void displayCallBack(void);
 void executeViewControl(float y, float p);
 void viewControl();
 void drawInitials();
-void jellyBody();
+void drawJelly();
 void keyboardCallBack(unsigned char key, int x, int y) ;
 void rotateView(bool r);
-void idleCallBack ();
+void rotatingFunc(int extra);
+//void idleCallBack ();
 void resetView();
 void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display);
 void jellyLeg(double array []);
@@ -150,9 +152,7 @@ void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display,
 //*********************************************
 
 
-//======================================================
-// DRAW AXES and GRIDS
-//======================================================
+
 //======================================================
 // DRAW AXES and GRIDS
 //======================================================
@@ -213,9 +213,9 @@ void drawAxesAndGridLines(bool x_y_display, bool y_z_display,  bool x_z_display,
 }
 
 //======================================================
-// VIEW CONTROL ROUTINES
+// IDLE CALLBACK
 //======================================================
-
+/*
 void idleCallBack (){
 
     if((G_rStopwatch->getValue() * 0.001)-slowRotationTimer > 1){
@@ -224,6 +224,38 @@ void idleCallBack (){
     }
     glutPostRedisplay();
 }
+
+
+*/
+
+
+
+//======================================================
+// ROTATION
+//======================================================
+void rotatingFunc(int extra){
+    if(extra==1)
+    {
+        rotation=rotation+1.0;
+        glutPostRedisplay();
+        rotateView(true);
+    }
+    else if(extra==0)
+    {
+        rotation=0.0;
+        glutPostRedisplay();
+    }
+}
+
+void rotateView(bool r)
+{
+	//rotating = r;
+    if (r) glutTimerFunc(10,rotatingFunc,1);
+    else glutTimerFunc(10,rotatingFunc,0);
+}
+
+
+
 
 
 
@@ -246,22 +278,9 @@ void keyboardCallBack(unsigned char key, int x, int y) {
         case 'g': case 'G':
             lines=!lines;
             break;
-        case 'r': 
-            if ( G_rStopwatch->isStopped() )
-            {
-                yaw0 = 0;
-                pitch0 = 0;
-                rotate = true;
-                G_rStopwatch->start() ;
-                glutIdleFunc( idleCallBack ) ;
-            }
-            else
-            {
-                rotate = false;
-                G_rStopwatch->stop() ;
-                glutIdleFunc( NULL ) ;
-            }
-            
+        case 'r':
+            rotating = !rotating;
+            rotateView(rotating);
             break;
         case 'j': 
             if ( G_pStopwatch->isStopped() )
@@ -338,8 +357,8 @@ void swimmingFunc(int extra){
     else if(extra==0)
     {
         breatheRCurve=0.8;
-        breatheJCurve=(breatheJCurve+0.3);
-        breatheJCurve=0.5;
+        breatheJCurve=0.3;
+        breatheRDiag=20;
         out=true;
         glutPostRedisplay();
     }
@@ -502,10 +521,11 @@ void drawInitials()
     glPopMatrix();
 }
 
-void jellyBody()
+void drawJelly()
 {
     glPushMatrix();
-    glTranslatef(square_x, square_y, 0.0);
+    //glTranslatef(square_x, square_y, 0.0);
+    glRotatef(rotation, 0.0, 1.0, 0.0);
     //glScalef(100, 100, 100);
         //printf("%d\n", square_x);
         //printf("%d\n", square_y);
@@ -583,7 +603,11 @@ void displayCallBack(void)
     
     //duration = (glutGet( GLUT_ELAPSED_TIME ) - start)*.0001;
     //draw jellyfish body
-    jellyBody();
+    glPushMatrix();
+    glTranslatef(square_x, square_y, 0.0);
+    //glRotatef(rotation, 0.0, 1.0, 0.0);
+    drawJelly();
+    glPopMatrix();
     
     // Get elapsed animation time (in seconds) from stopwatch.
     double t= G_pStopwatch->getValue() * 0.001 ;  
