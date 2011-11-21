@@ -5,6 +5,7 @@
 //  Created by Lewis McLean on 21/11/2011.
 //  Copyright (c) 2011 Heriot Watt. All rights reserved.
 //
+//
 
 
 #include <GLUT/glut.h>
@@ -20,18 +21,15 @@ public:
 
 void stop()
 { 
-    _lastValue= getValue() ; _stopped= true ; 
+    _lastValue= getValue() ;
+    _stopped= true ; 
 }
 
 void start()
 { 
-    _tStart= glutGet( GLUT_ELAPSED_TIME ) ; _stopped= false ; 
+    _tStart= glutGet( GLUT_ELAPSED_TIME ) ;
+    _stopped= false ; 
 }
-
-void reset()
-{ 
-    _lastValue= 0 ; _tStart= glutGet( GLUT_ELAPSED_TIME ) ; 
-} 
 
 bool isStopped()
 { 
@@ -40,7 +38,9 @@ bool isStopped()
 
 double getValue()
 { 
-    return _stopped ? _lastValue : _lastValue + (glutGet( GLUT_ELAPSED_TIME ) - _tStart) ; 
+    if(_stopped) return _lastValue ;
+    else{ return _lastValue + (glutGet( GLUT_ELAPSED_TIME ) - _tStart) ; }  
+
 } 
     
 private:
