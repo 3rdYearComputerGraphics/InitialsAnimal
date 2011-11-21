@@ -62,7 +62,7 @@ double angleRandomSeeds2 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angleRandomSeeds3 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angleRandomSeeds4 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 const double ROTATION_FREQ = 0.03 ;
-const double MAX_ANGLE= 20.0 ;
+const double MAX_ANGLE= 10.0 ;
 long duration;
 double slowStartTimer;
 Stopwatch* G_pStopwatch ;
@@ -89,9 +89,9 @@ bool move = false;
 // GLOBAL VARIABLES WRITTEN TO BY motionCallBack( )
 //====================================================================
 double square_x, square_y, square_z; // position of square
-float square_dx = .001; // incremental change insquare_x
-float square_dy= .003; // incremental change insquare_x
-float square_dz= .003;
+float square_dx = .0005; // incremental change insquare_x
+float square_dy= .0006; // incremental change insquare_x
+float square_dz= .0006;
 Stopwatch* G_rStopwatch ;
 double slowRotationTimer;
 bool rotate = false;
