@@ -30,22 +30,36 @@
 // GLOBAL VARIABLES 
 //======================================================
 
-//For rotation
+//For rotation MJC code
 //======================================================
 float pitch = 0.0f;
 float yaw = 0.0f;
 float pitch0, yaw0;
 
-//for mouse call back
+//for mouse call back MJC code
 //======================================================
 bool MousePressed;
 int mouseX0, mouseY0;
 
 
-//for view control
+//for view control MJC code
 //======================================================
 static float G_theta[3]; // View X,Y,Z
 static float G_zoom=0.6;
+
+
+// GLOBAL VARIABLES WRITTEN TO BY motionCallBack( ) MJC code
+//====================================================================
+double square_x, square_y, square_z; // position of square
+float square_dx = .0005; // incremental change insquare_x
+float square_dy= .0006; // incremental change insquare_x
+float square_dz= .0006;
+Timer* G_rStopwatch ;
+double slowRotationTimer;
+bool rotate = false;
+int randomMovement = 0;
+
+
 
 // Jelly Legs sine wave
 //======================================================
@@ -77,22 +91,12 @@ int lastX;
 int lastY;
 int lastZ;
 
-Timer* G_sStopwatch ;
+// to keep control of the movement on different H/W
+Timer* movementTimer ;
 bool move = false;
 double slowStartTimer;
 
 
-
-// GLOBAL VARIABLES WRITTEN TO BY motionCallBack( )
-//====================================================================
-double square_x, square_y, square_z; // position of square
-float square_dx = .0005; // incremental change insquare_x
-float square_dy= .0006; // incremental change insquare_x
-float square_dz= .0006;
-Timer* G_rStopwatch ;
-double slowRotationTimer;
-bool rotate = false;
-int randomMovement = 0;
 
 
 //****************************************************
