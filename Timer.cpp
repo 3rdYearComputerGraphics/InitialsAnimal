@@ -13,6 +13,12 @@
 
 class Timer
 {
+
+private:
+    double       _lastValue ; // counter when clock stopped last
+    unsigned int _tStart ;    // when clock (re)started
+    bool         _stopped ;   // is clock stopped?
+    
 public:
     Timer(): 
     _lastValue( 0 ), _stopped( true ) 
@@ -43,8 +49,5 @@ double getValue()
 
 } 
     
-private:
-    double       _lastValue ; // counter when clock stopped last
-    unsigned int _tStart ;    // when clock (re)started
-    bool         _stopped ;   // is clock stopped?
+
 } ;
