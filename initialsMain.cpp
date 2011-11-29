@@ -109,7 +109,7 @@ float breatheRDiag = 20;
 bool swimming=false;
 bool rotating=false;
 bool out=true;
-bool lines=true;
+bool lines=false;
 float rotation=0.0f;
 //*****************************************************
 
@@ -226,13 +226,9 @@ void keyboardCallBack(unsigned char key, int x, int y) {
 	printf("Keyboard call back: key=%c, x=%d, y=%d\n", key, x, y);
 	switch(key)
 	{
-        //Fills in the back colouring
-        case 'b': case 'B':
-            glPolygonMode(GL_BACK,GL_FILL);
-            break;
         //fills in the front colouring
         case 'f': case 'F':
-            glPolygonMode(GL_FRONT,GL_FILL);
+            glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
             break;
         //switches to line mode
         case 'l': case 'L':
@@ -243,12 +239,12 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             lines=!lines;
             break;
         //toggles rotation
-        case 'r':
+        case 'r': case 'R':
             rotating= !rotating;
             rotateView(rotating);
             break;
         //toggle jelly legs independently
-        case 'j': 
+        case 'j': case 'J': 
             if ( sineTimer->isStopped() )
             {
                 sineTimer->start() ;
@@ -261,7 +257,7 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             }
             break;
         //toggle movement independently
-        case 'm': 
+        case 'm': case 'M': 
             if ( movementTimer->isStopped() )
             {
                 move = true;
@@ -275,12 +271,12 @@ void keyboardCallBack(unsigned char key, int x, int y) {
             }
             break;
         //toggle boddy swimming effect independently
-        case 's': 
+        case 's': case 'S': 
             swimming= !swimming;
             jellySwim(swimming);
             break;
         //toggle body, legs, and movement at once
-        case 'a': 
+        case 'a': case 'A': 
             if ( sineTimer->isStopped() )
             {
                 sineTimer->start() ;
@@ -318,7 +314,7 @@ void keyboardCallBack(unsigned char key, int x, int y) {
 
 
 //======================================================
-// ROTATION - MJC code
+// ROTATION
 //======================================================
 void rotatingFunc(int extra){
     if(extra==1)
@@ -329,7 +325,6 @@ void rotatingFunc(int extra){
     }
     else if(extra==0)
     {
-        //rotation=0.0;
         glutPostRedisplay();
     }
 }
@@ -475,23 +470,7 @@ void reshapeCallBack(int w, int h)
     glMatrixMode(GL_MODELVIEW);
 }
 
-void background()
-{
-    
-    glBegin(GL_POLYGON);
-    glColor3ub( 0, 100, 255);
-    glTexCoord2f(1,0);
-    glVertex2f(10, 10);
-    glTexCoord2f(0,0);
-    glVertex2f(-10, 10);
-    glTexCoord2f(0,1);
-    glVertex2f(-10, -10);
-    glTexCoord2f(1,1);
-    glVertex2f(10, -10);
-	glEnd();
-    
-    
-}
+
 
 
 //======================================================
@@ -500,57 +479,52 @@ void background()
 //======================================================
 void drawInitials()
 {
-    /*
+    
     //draw initial J
     glPushMatrix();
     glTranslatef(-0.6,0.0,0.0);
     glScalef(0.1,0.1,0.1);
-    glRotatef(90,0.0,1.0,0.0);
 	//draw J now needs parameters
-    drawJ(breatheJCurve);
+    drawJ(breatheJCurve,bodyColour1,bodyColour2);
     glPopMatrix();
     
     //draw intial K
     glPushMatrix();
-    //glTranslatef(-0.4,0.0,0.0);
-    //glScalef(0.1,0.1,0.1);
-    //glRotatef(90,0.0,1.0,0.0);
-    //drawK();
+    glTranslatef(-0.4,0.0,0.0);
+    glScalef(0.1,0.1,0.1);
+    drawK(bodyColour1,bodyColour2);
     glPopMatrix();
     
     //draw initial R
     glPushMatrix();
-    //glTranslatef(-0.2,-0.01,0.0);
-    //glScalef(0.1,0.1,0.1);
-    //glRotatef(90,0.0,1.0,0.0);
+    glTranslatef(-0.2,-0.01,0.0);
+    glScalef(0.1,0.1,0.1);
     //draw R now needs parameters
-    //drawR(breatheRCurve,breatheRDiag);
+    drawR(breatheRCurve,breatheRDiag,bodyColour1,bodyColour2);
     glPopMatrix();
     
     //draw initial L
     glPushMatrix();
-    //glTranslatef(0.2,0.0,0.0);
-    //glScalef(0.1,0.1,0.1);
-    //glRotatef(90,0.0,1.0,0.0);
-    //drawL();
+    glTranslatef(0.2,0.0,0.0);
+    glScalef(0.1,0.1,0.1);
+    drawL(bodyColour1,bodyColour2);
     glPopMatrix();
     
     //draw initial I
     glPushMatrix();
-    //glTranslatef(0.0,0.0,0.0);
-    //glScalef(0.1,0.1,0.1);
-    //glRotatef(90,0.0,1.0,0.0);
-    //drawI();
+    glTranslatef(0.0,0.0,0.0);
+    glScalef(0.1,0.1,0.1);
+    drawI(bodyColour1,bodyColour2);
     glPopMatrix();
     
     //draw initial M
     glPushMatrix();
-    glTranslatef(0.5,0.0,0.0);
-    //glScalef(0.1,0.1,0.1);
-    //glRotatef(90,0.0,1.0,0.0);
-    //drawM();
+    glTranslatef(0.5,-0.25,0.0);
+    glRotatef(90,0.0,0.0,1.0);
+    glScalef(0.1,0.1,0.1);
+    drawM(bodyColour1,bodyColour2);
     glPopMatrix();
-     */
+     
 }
 
 void drawJelly()
@@ -622,6 +596,7 @@ void displayCallBack(void)
     glPopMatrix();
     
     // Get elapsed animation time (in seconds) from stopwatch.
+    //t is effectively the y-axis of the sine graph for each
     double t= sineTimer->getValue() * 0.001 ;  
 
     //set up the arrays for passing to the legs
@@ -661,8 +636,7 @@ void displayCallBack(void)
     angles4[6]= MAX_ANGLE * sin( angleRandomSeeds4[6] * t ) ;
     angles4[7]= MAX_ANGLE * sin( angleRandomSeeds4[7] * t ) ;
 
-    //moves the jellyfish around the screen
-    //printf("%f\n",movementTimer->getValue() * 0.001-slowStartTimer);
+   
 
     if(move){
         if((movementTimer->getValue() * 0.001)-slowStartTimer > .01){
@@ -734,10 +708,10 @@ int main(int argc, char** argv)
 	// Create and name window
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); // Need both double buffering and z buffer
     glutInitWindowSize(800, 800);
-    glutCreateWindow("Lewis and Jamie's Jellyfish");
+    glutCreateWindow("Nelly the Jellyfish");
     
     //Prints instructions to screen
-    printf("\nPress the following to interact:\n 'b' - fill back colour; 'f' - fill front colour; 'l' - line mode; 'r' - rotate;\n 'm' - movement; 'j' - move jelly legs; 's' - move body; 'a' - move all\n");
+    printf("\nPress the following to interact:\n 'f' - fill colour; 'l' - line mode; 'r' - rotate;\n 'm' - movement; 'j' - move jelly legs; 's' - move body; 'a' - move all\n");
 
     
 	// Add Display & Mouse CallBacks
