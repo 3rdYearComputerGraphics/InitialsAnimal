@@ -5,7 +5,12 @@
 //  Created by Jamie Johnstone & Lewis McLean on 04/10/2011.
 //  Copyright 2011 Heriot-Watt University. All rights reserved.
 //
-//
+// Arguments:
+// float colours1 holds the array with the values for the front face
+// float colours2 holds the array with the values for the front face
+// float breatheRCurve controls the scale of the letter R
+// float breatheJCurve controls the scale of the letter J
+// float breatheRDiag controls the angle of the R within the body
 
 #include <stdlib.h>
 #include <GLUT/glut.h>

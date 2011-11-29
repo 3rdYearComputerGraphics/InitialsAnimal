@@ -7,6 +7,10 @@
 //
 //
 
+// Class to handle the timing of various time-dependant functions in main.cpp
+// acts like a stopwatch - void start(),void stop(), double getValue() and bool isStopped()
+// holds it's own private variables
+
 
 #include <GLUT/glut.h>
 

@@ -5,7 +5,9 @@
 //  Created by Jamie Johnstone & Lewis McLean on 04/10/2011.
 //  Copyright 2011 Heriot-Watt University. All rights reserved.
 //
-//
+// Arguments:
+// float colours1 holds the array with the values for the front face
+// float colours2 holds the array with the values for the front face
 
 #include <stdlib.h>
 #include <GLUT/glut.h>
@@ -18,12 +20,6 @@
 void drawM(float colours1[], float colours2[]) {
     
     //    //horizontal of M
-    //    glPushMatrix();
-    //    glTranslatef(1.8,-1.46,0.0);
-    //    glRotatef(90,0.0,0.0,1.0);
-    //    glScalef(0.5,1.0,0.5);
-    //    cube(0,1,2,3,4,5,6,7);
-    //    glPopMatrix();
     glPushMatrix();
     glTranslatef(1.5,-0.2,0.0);
     glRotatef(270,0.0,0.0,1.0);

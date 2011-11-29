@@ -6,6 +6,13 @@
 //  Copyright 2011 Heriot-Watt University. All rights reserved.
 //
 //
+// Arguments:
+// float colours1 holds the array with the values for the front face
+// float colours2 holds the array with the values for the front face
+// double array [] (where used) holds the angles of each articulation between the letters of the legs
+
+
+
 
 #include <stdlib.h>
 #include <GLUT/glut.h>
@@ -23,6 +30,8 @@
 
 
 void jellyLegShape(double array[],float colours1[], float colours2[]);
+// this is a a test method - left it in for debugging.
+
 void legPart(float colours1[], float colours2[]);
 void legPart1(float colours1[], float colours2[]);
 void legPart2(float colours1[], float colours2[]);

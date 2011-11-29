@@ -67,6 +67,8 @@ double angles1[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angles2[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angles3[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angles4[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+
+//these are values to make each leg and each joint act differently when using the sine function
 double angleRandomSeeds1 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angleRandomSeeds2 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 double angleRandomSeeds3 [] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};

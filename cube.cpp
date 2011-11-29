@@ -7,6 +7,10 @@
 // Date    : 18/03/2007
 // Version : 1.0
 //
+// Arguments:
+// float colours1 holds the array with the values for the front face
+// float colours2 holds the array with the values for the front face
+// int a - h specify the points/corners of used to build the cube
 
 #include <stdlib.h>
 #include <GLUT/glut.h>
